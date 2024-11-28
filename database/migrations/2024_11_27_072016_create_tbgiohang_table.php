@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbgiohang', function (Blueprint $table) {
-            $table->unsignedBigInteger('tenTaiKhoan'); 
+            $table->string('taiKhoan'); 
             $table->unsignedBigInteger('maSanPham'); 
             $table->integer('soLuong'); 
             $table->timestamps();
             
-            $table->foreign('tenTaiKhoan')->references('tenTaiKhoan')->on('tbtaikhoan')->onDelete('cascade');
+            $table->foreign('taiKhoan')->references('taiKhoan')->on('tbtaikhoan')->onDelete('cascade');
             $table->foreign('maSanPham')->references('maSanPham')->on('tbsanpham')->onDelete('cascade');
-            $table->primary(['tenTaiKhoan', 'maSanPham']);
+            $table->primary(['taiKhoan', 'maSanPham']);
         });
     }
 

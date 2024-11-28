@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('tbkhachhang', function (Blueprint $table) {
             $table->id('maKhachHang');
-            $table->string('tenTaiKhoan'); 
+            $table->string('taiKhoan'); 
             $table->string('sdt'); 
             $table->string('diaChi'); 
             $table->timestamps(); 
 
-            $table->foreign('tenTaiKhoan')->references('tenTaiKhoan')->on('tbtaikhoan')
+            $table->foreign('taiKhoan')->references('taiKhoan')->on('tbtaikhoan')
                   ->onDelete('cascade'); 
         });
     }

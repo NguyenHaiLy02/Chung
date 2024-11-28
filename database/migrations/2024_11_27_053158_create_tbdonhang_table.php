@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tbdonhang', function (Blueprint $table) {
             $table->id('maDonHang'); 
-            $table->unsignedBigInteger('tenTaiKhoan');
+            $table->string('taiKhoan');
             $table->date('ngayDatHang'); 
             $table->decimal('tongTien', 10, 2); 
             $table->string('trangThaiDonHang'); 
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('maNhanVienDuyet'); 
             $table->timestamps(); 
             
-            $table->foreign('tenTaiKhoan')->references('tenTaiKhoan')->on('tbtaikhoan')->onDelete('cascade');
+            $table->foreign('taiKhoan')->references('taiKhoan')->on('tbtaikhoan')->onDelete('cascade');
             $table->foreign('maNhanVienGiaoHang')->references('maNhanVien')->on('tbnhanvien')->onDelete('cascade');
             $table->foreign('maNhanVienDuyet')->references('maNhanVien')->on('tbnhanvien')->onDelete('cascade');
         });
