@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('buyer.home.index');
-});
+use App\Http\Controllers\Buyer\HomeController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
