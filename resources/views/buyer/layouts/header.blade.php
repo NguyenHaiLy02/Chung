@@ -109,7 +109,9 @@
                 <span class="badge">3</span>
             </div>
             <div class="user">
-                <i class="fas fa-user-circle"></i>
+                <a href="{{ route('login') }}">
+                    <i class="fas fa-user-circle"></i>
+                </a>
             </div>
         </div>
     </header>

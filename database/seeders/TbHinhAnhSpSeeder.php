@@ -22,67 +22,67 @@ class TbHinhAnhSpSeeder extends Seeder
             ],
             [
                 'maSanPham' => 1, // Cà chua đỏ
-                'hinhAnh' => 'images/products/cachua_2.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 2, // Cải bó xôi
-                'hinhAnh' => 'images/products/caiboxoi.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 3, // Rau mùi
-                'hinhAnh' => 'images/products/raumui.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 4, // Thịt bò tươi
-                'hinhAnh' => 'images/products/thitbo.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 4, // Thịt bò tươi (hình thứ 2)
-                'hinhAnh' => 'images/products/thitbo_2.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 5, // Thịt heo ba chỉ
-                'hinhAnh' => 'images/products/thitheo.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 6, // Tôm tươi
-                'hinhAnh' => 'images/products/tomtuoi.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 7, // Cá hồi tươi
-                'hinhAnh' => 'images/products/cahoi.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 8, // Táo đỏ
-                'hinhAnh' => 'images/products/taodo.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 9, // Chuối tiêu
-                'hinhAnh' => 'images/products/chuoi.jpg',
+                'hinhAnh' =>'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
             [
                 'maSanPham' => 10, // Gạo tẻ
-                'hinhAnh' => 'images/products/gao.jpg',
+                'hinhAnh' => 'https://png.pngtree.com/background/20220718/original/pngtree-children-s-thick-cut-lettuce-steak-picture-image_1665751.jpg',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
