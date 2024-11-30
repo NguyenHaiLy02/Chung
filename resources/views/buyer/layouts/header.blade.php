@@ -14,7 +14,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 30px;
+            padding: 0px 30px;
             /* Tăng khoảng cách trong header */
             background-color: #f8f9fa;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@
 
         /* Logo */
         .logo img {
-            height: 100px;
+            height: 80px;
             padding-left: 100px;
             /* Tạo khoảng cách với thanh tìm kiếm */
         }

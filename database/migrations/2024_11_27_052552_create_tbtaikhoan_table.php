@@ -15,8 +15,9 @@ return new class extends Migration
             $table->string('taiKhoan')->primary();
             $table->string('quyen'); 
             $table->string('matKhau'); 
-            $table->string('email')->unique(); 
-            $table->timestamps(); 
+            $table->string('email')->unique();
+            $table->boolean('verify_email')->default(false); // Cột kiểm tra xác thực email
+            $table->timestamps();
         });
     }
 

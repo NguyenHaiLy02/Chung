@@ -1,5 +1,5 @@
     @extends('buyer.layouts.app')
-    @section('title', 'SEASIDE')
+    @section('title', 'DANAMART')
     @section('content')
         <section class="py-3"
             style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">

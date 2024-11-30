@@ -16,7 +16,7 @@ class TbHinhAnhSpSeeder extends Seeder
         DB::table('tbhinhanhsp')->insert([
             [
                 'maSanPham' => 1, // Cà chua đỏ
-                'hinhAnh' => 'images/products/cachua.jpg',
+                'hinhAnh' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQG0jPYWrFFJI1q8cqyKSXsPnXHpxkl5GkYAg&s',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],

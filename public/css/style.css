@@ -720,3 +720,38 @@ h1,h2,h3,h4,h5,h6 {
     height: 740px;
   }
 }
+
+.custom-border {
+  border: 2px solid #ddffc7; /* Đặt màu viền đậm ngay cả khi chưa focus */
+  border-radius: 10px; /* Bo góc */
+  padding: 10px; /* Khoảng cách trong input */
+}
+
+.custom-border:focus {
+  border-color: #6bfe73; /* Màu viền khi focus (màu xanh đậm hơn) */
+  box-shadow: 0 0 5px #6bfe73; /* Đổ bóng với màu xanh đậm */
+}
+
+.custom-border:hover {
+  border-color: #6bfe73; /* Thay đổi màu viền khi hover */
+}
+.input-group-text {
+  padding: 5px 10px;
+  background: transparent;
+}
+.custom-border {
+  border: 2px solid #beffca; /* Đậm hơn một chút */
+  border-radius: 5px;
+}
+
+
+.input-group .btn {
+  border-radius: 0; /* Loại bỏ bo góc nếu cần */
+}
+
+.position-absolute {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
