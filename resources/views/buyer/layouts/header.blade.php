@@ -97,7 +97,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="images/logo.jpg" alt="Logo" class="img-fluid">
+            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="img-fluid">
         </div>
         <div class="search-bar">
             <input type="text" placeholder="Tìm kiếm sản phẩm..." />

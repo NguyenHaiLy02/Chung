@@ -35,3 +35,7 @@ Route::get('/email/verify', function () {
     return view('auth.verify');
 })->middleware('auth')->name('verification.notice');
 
+
+// Sản Phẩm
+use App\Http\Controllers\Buyer\SanPhamController;
+Route::get('/san-pham/{id}', [SanPhamController::class, 'show'])->name('buyer.sanpham.detail');
