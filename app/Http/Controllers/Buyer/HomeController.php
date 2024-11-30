@@ -11,10 +11,12 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $danhMucs = TbDanhMuc::with('sanPhams')->get(); // Lấy tất cả danh mục cùng sản phẩm
-        $allSanPhams = TbSanPham::all(); // Lấy tất cả sản phẩm
+        // Lấy danh mục cùng sản phẩm và hình ảnh liên kết
+        $danhMucs = TbDanhMuc::with(['sanPhams.hinhAnhSps'])->get();
+
+        // Lấy tất cả sản phẩm kèm hình ảnh
+        $allSanPhams = TbSanPham::with('hinhAnhSps')->get();
 
         return view('buyer.home.index', compact('danhMucs', 'allSanPhams'));
     }
-
 }
