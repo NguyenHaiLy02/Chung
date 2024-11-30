@@ -146,12 +146,12 @@
                                             <div class="col">
                                                 <div class="product-item">
                                                     <span class="badge bg-success position-absolute m-3">-30%</span>
-                                                    <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" class="btn-wishlist"><svg width="24"
+                                                    <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" class="btn-wishlist"><svg width="24"
                                                             height="24">
                                                             <use xlink:href="#heart"></use>
                                                         </svg></a>
                                                     <figure>
-                                                        <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}">
+                                                        <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}">
                                                             @foreach ($sanPham->hinhAnhSps as $hinhAnh)
                                                                 <img src="{{ $hinhAnh->hinhAnh }}" class="tab-image">
                                                             @break
@@ -199,10 +199,78 @@
                                     @endforeach
                                 </div>
                             </div>
-                        </div>
+
+                            @foreach ($danhMucs as $category)
+                                <div class="tab-pane fade" id="nav-{{ $category->maDanhMuc }}" role="tabpanel"
+                                    aria-labelledby="nav-{{ $category->maDanhMuc }}-tab">
+                                    <div
+                                        class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                                        @foreach ($category->sanPhams as $sanPham)
+                                            <div class="col">
+                                                <div class="product-item">
+                                                    <span class="badge bg-success position-absolute m-3">-30%</span>
+                                                    <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" class="btn-wishlist">
+                                                        <svg width="24" height="24">
+                                                            <use xlink:href="#heart"></use>
+                                                        </svg>
+                                                    </a>
+                                                    <figure>
+                                                        <!-- Chuyển đến trang chi tiết sản phẩm -->
+                                                        <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}">
+                                                            @foreach ($sanPham->hinhAnhSps as $hinhAnh)
+                                                                <img src="{{ $hinhAnh->hinhAnh }}" class="tab-image" alt="{{ $sanPham->tenSanPham }}">
+                                                                @break
+                                                            @endforeach
+                                                        </a>
+                                                        
+                                                    </a>
+                                                </figure>
+                                                <h3>{{ $sanPham->tenSanPham }}</h3>
+                                                <span class="qty">{{ $sanPham->soLuongTonKho }} Units</span>
+                                                <span class="rating">
+                                                    <svg width="24" height="24" class="text-primary">
+                                                        <use xlink:href="#star-solid"></use>
+                                                    </svg> 4.5
+                                                </span>
+                                                <span class="price">${{ $sanPham->giaTien }}</span>
+
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="input-group product-qty">
+                                                        <span class="input-group-btn">
+                                                            <button type="button"
+                                                                class="quantity-left-minus btn btn-danger btn-number"
+                                                                data-type="minus">
+                                                                <svg width="16" height="16">
+                                                                    <use xlink:href="#minus"></use>
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                        <input type="text" id="quantity" name="quantity"
+                                                            class="form-control input-number" value="1">
+                                                        <span class="input-group-btn">
+                                                            <button type="button"
+                                                                class="quantity-right-plus btn btn-success btn-number"
+                                                                data-type="plus">
+                                                                <svg width="16" height="16">
+                                                                    <use xlink:href="#plus"></use>
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <a href="#" class="nav-link">Add to Cart <iconify-icon
+                                                            icon="uil:shopping-cart"></iconify-icon></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+    </div>
+</section>
 @endsection
