@@ -20,4 +20,8 @@ class TbChiTietDonHang extends Model
     {
         return $this->belongsTo(TbSanPham::class, 'maSanPham');
     }
+    public function danhGiaSanPhams()
+    {
+        return $this->hasMany(DanhGiaSanPham::class, 'maChiTietDonHang', 'maChiTietDonHang');
+    }
 }

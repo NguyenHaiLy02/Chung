@@ -37,8 +37,8 @@
                 @csrf
                 <input type="hidden" name="sanPhamId" value="{{ $sanPham->maSanPham }}">
                 <input type="hidden" name="quantity" value="{{ $quantity }}">
-                <input type="hidden" name="totalPrice" value="{{ $sanPham->giaTien * $quantity }}"> <!-- Pass total price -->
-
+                <input type="hidden" name="totalPrice" value="{{ $sanPham->giaTien * $quantity }}">
+            
                 <div class="payment-options" style="text-align: right;">
                     <label for="paymentMethod" style="font-size: 14px; margin-bottom: 5px;">Phương thức thanh toán:</label>
                     <select name="paymentMethod" id="paymentMethod" required style="font-size: 14px; padding: 5px; width: auto; max-width: 200px;margin-right: 50px;">
@@ -46,12 +46,23 @@
                         <option value="nvpay">Thanh toán NVPay</option>
                     </select>
                 </div>
+            
+                <!-- Delivery Address and Phone Number (optional but recommended for COD) -->
+                <div>
+                    <label for="address">Địa chỉ giao hàng:</label>
+                    <input type="text" name="address" required placeholder="Nhập địa chỉ giao hàng" style="padding: 8px; font-size: 14px; width: 100%; margin-bottom: 10px;">
+                </div>
+                
+                <div>
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="text" name="phone" required placeholder="Nhập số điện thoại" style="padding: 8px; font-size: 14px; width: 100%; margin-bottom: 10px;">
+                </div>
                 
                 <button type="submit" class="btn btn-buy" style="padding: 8px 16px; font-size: 14px; width: auto; max-width: 200px; display: block; margin-top: 10px; margin-left: auto;margin-right: 50px;">
                     Đặt hàng
                 </button>
-                
             </form>
+            
         </div>
     </div>
 @endsection

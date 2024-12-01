@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('diaChiGiaoHang'); 
             $table->string('sdt'); 
             $table->string('trangThaiThanhToan'); 
-            $table->unsignedBigInteger('maNhanVienGiaoHang'); 
-            $table->unsignedBigInteger('maNhanVienDuyet'); 
+            $table->unsignedBigInteger('maNhanVienGiaoHang')->nullable();  // Allow null
+            $table->unsignedBigInteger('maNhanVienDuyet')->nullable();  // Allow null
             $table->timestamps(); 
             
             $table->foreign('taiKhoan')->references('taiKhoan')->on('tbtaikhoan')->onDelete('cascade');

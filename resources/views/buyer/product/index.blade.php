@@ -176,6 +176,17 @@
 
     <div class="product-rating">
         <h4>Đánh giá sản phẩm</h4>
-        <p>Chưa có đánh giá nào.</p>
+        @if($sanPham->chiTietDonHangs->isEmpty())
+            <p>Chưa có đánh giá nào.</p>
+        @else
+            @foreach ($sanPham->chiTietDonHangs as $chiTiet)
+                @foreach ($chiTiet->danhGiaSanPhams as $danhGia)
+                    <div style="margin-bottom: 10px;">
+                        <p><strong>Số sao: </strong>{{ $danhGia->soLuongSao }} sao</p>
+                        <p><strong>Nội dung: </strong>{{ $danhGia->noiDung }}</p>
+                    </div>
+                @endforeach
+            @endforeach
+        @endif
     </div>
 @endsection

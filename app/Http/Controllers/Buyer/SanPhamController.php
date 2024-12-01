@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Buyer;
 
 use App\Http\Controllers\Controller;
@@ -10,10 +9,10 @@ class SanPhamController extends Controller
 {
     public function show($id)
     {
-        // Tìm sản phẩm theo ID và eager load hình ảnh và nhà cung cấp liên quan
-        $sanPham = TbSanPham::with(['hinhAnhSps', 'nhaCungCap'])->findOrFail($id);
+        // Tìm sản phẩm theo ID và eager load các quan hệ hình ảnh, nhà cung cấp và đánh giá sản phẩm
+        $sanPham = TbSanPham::with(['hinhAnhSps', 'nhaCungCap', 'chiTietDonHangs.danhGiaSanPhams'])->findOrFail($id);
         
-        // Trả về view với thông tin sản phẩm và nhà cung cấp
+        // Trả về view với thông tin sản phẩm và đánh giá
         return view('buyer.product.index', compact('sanPham'));
     }
 }

@@ -6,15 +6,19 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use App\Models\TbTaiKhoan;
+
 class CheckLogin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        return $next($request);
+        $username = session('username'); // Lấy username từ session
+        if ($username) {
+            $quyen = TbTaiKhoan::where('taiKhoan', $username)->value('quyen'); // Lấy quyền duy nhất
+            if ($quyen === 'khachhang') {
+                return $next($request);
+            }
+        }
+        return redirect()->route('login'); // Chuyển hướng nếu không hợp lệ
     }
 }

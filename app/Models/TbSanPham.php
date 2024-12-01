@@ -30,4 +30,9 @@ class TbSanPham extends Model
     {
         return $this->hasMany(TbHinhAnhSp::class, 'maSanPham', 'maSanPham');
     }
+    public function chiTietDonHangs()
+    {
+        return $this->hasMany(TbChiTietDonHang::class, 'maSanPham', 'maSanPham');
+    }
+    
 }

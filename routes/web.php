@@ -45,3 +45,4 @@ use App\Http\Controllers\Buyer\OrderController;
 
 Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->name('order.create');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+
