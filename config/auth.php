@@ -34,11 +34,10 @@ return [
     | Supported: "session"
     |
     */
-
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'tbtaikhoan', // Thay đổi thành bảng của bạn
         ],
     ],
 
@@ -60,16 +59,12 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'tbtaikhoan' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\TbTaiKhoan::class, // Thêm mô hình của bạn
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

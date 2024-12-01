@@ -39,3 +39,9 @@ Route::get('/email/verify', function () {
 // Sản Phẩm
 use App\Http\Controllers\Buyer\SanPhamController;
 Route::get('/san-pham/{id}', [SanPhamController::class, 'show'])->name('buyer.sanpham.detail');
+
+
+use App\Http\Controllers\Buyer\OrderController;
+
+Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->name('order.create');
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');

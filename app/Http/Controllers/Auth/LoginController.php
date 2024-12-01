@@ -62,6 +62,7 @@ public function login(Request $request)
         // Chuyển hướng dựa trên quyền (role)
         switch ($user->quyen) {
             case 'khachhang':
+                session()->put('username', $user->taiKhoan);
                 return redirect()->route('home.index')->with('success', 'Đăng nhập thành công.');
             case 'chucuahang':
                 return redirect()->route('')->with('success', 'Đăng nhập thành công.');
@@ -90,6 +91,8 @@ public function login(Request $request)
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login')->with('success', 'Đã đăng xuất.');
+        session()->flush();
+        return redirect()->route('home.index'); // Hoặc chuyển hướng về route `login`
     }
+    
 }

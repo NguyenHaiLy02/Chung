@@ -109,9 +109,34 @@
                 <span class="badge">3</span>
             </div>
             <div class="user">
-                <a href="{{ route('login') }}">
-                    <i class="fas fa-user-circle"></i>
-                </a>
+                @if (session('username'))
+                    @php
+                        $buyerProfile = \App\Models\TbKhachHang::where('taiKhoan', session('username'))->first();
+                    @endphp
+                    <div class="nav-item dropdown">
+                        <a href="#" style="height: 100%;color: #bf6d72;" class="nav-link dropdown-toggle"
+                            onclick="toggleDropdown()" data-bs-toggle="dropdown">
+                            {{ $buyerProfile->taiKhoan }}
+                        </a>
+                        <div id="userDropdown" class="dropdown-menu">
+                            <a href="#" class="dropdown-item"><i class="fa-solid fa-user"></i> Thông
+                                tin cá nhân</a>
+                            <a href="#" class="dropdown-item"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}">
+                        <i class="fas fa-user-circle"></i>
+                    </a>
+                @endif
+
             </div>
         </div>
     </header>

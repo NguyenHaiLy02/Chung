@@ -146,10 +146,7 @@
                                             <div class="col">
                                                 <div class="product-item">
                                                     <span class="badge bg-success position-absolute m-3">-30%</span>
-                                                    <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" class="btn-wishlist"><svg width="24"
-                                                            height="24">
-                                                            <use xlink:href="#heart"></use>
-                                                        </svg></a>
+                                                    
                                                     <figure>
                                                         <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}">
                                                             @foreach ($sanPham->hinhAnhSps as $hinhAnh)
@@ -160,7 +157,7 @@
                                                         @endforeach
                                                     </a>
                                                 </figure>
-                                                <h3>{{ $sanPham->tenSanPham }}</h3>
+                                                <a href="{{ route('buyer.sanpham.detail', ['id' => $sanPham->maSanPham]) }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}" title="{{ $sanPham->tenSanPham }}"><h3>{{ $sanPham->tenSanPham }}</h3></a>
                                                 <span class="qty">{{ $sanPham->soLuongTonKho }} Units</span>
                                                 <span class="rating">
                                                     <svg width="24" height="24" class="text-primary">
