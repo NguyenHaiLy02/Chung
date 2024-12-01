@@ -17,13 +17,13 @@ class TbChungNhanSeeder extends Seeder
             // Nhà cung cấp 1 có 2 chứng nhận
             [
                 'maNCC' => 1, 
-                'hinhanh' => 'chungnhan_huu_co_1.jpg',
+                'hinhanh' => 'https://tqc.vn/pic/Service/images/chung-chi-chung-nhan-huu-co-trong-trot-01-01-01.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'maNCC' => 1, 
-                'hinhanh' => 'chungnhan_an_toan_thuc_pham_1.jpg',
+                'hinhanh' => 'https://ketoananpha.vn/uploads/images/post/517-moi/quy-dinh-ve-giay-chung-nhan-an-toan-thuc-pham-02.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -31,19 +31,19 @@ class TbChungNhanSeeder extends Seeder
             // Nhà cung cấp 2 có 3 chứng nhận
             [
                 'maNCC' => 2, 
-                'hinhanh' => 'chungnhan_haccp_2.jpg',
+                'hinhanh' => 'https://chungnhaniso.org.vn/upload/elfinder/Iso9001/hinh%20giay%20cn%20Haccp.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'maNCC' => 2, 
-                'hinhanh' => 'chungnhan_iso22000_2.jpg',
+                'hinhanh' => 'https://isoq.vn/wp-content/uploads/2021/08/GCN-22K-1-724x1024.png',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'maNCC' => 2, 
-                'hinhanh' => 'chungnhan_globalgap_2.jpg',
+                'hinhanh' => 'https://tqc.vn/pic/Service/images/ACCREDITATION%20CERTIFICATE-CGLOBAL_GLOBALG_A_P_-01.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -51,7 +51,7 @@ class TbChungNhanSeeder extends Seeder
             // Nhà cung cấp 3 có 1 chứng nhận
             [
                 'maNCC' => 3, 
-                'hinhanh' => 'chungnhan_vietgap_3.jpg',
+                'hinhanh' => 'https://vinaucare.com/wp-content/uploads/2020/05/46fe481fbbe45dba04f5.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -59,13 +59,13 @@ class TbChungNhanSeeder extends Seeder
             // Nhà cung cấp 4 có 2 chứng nhận
             [
                 'maNCC' => 4, 
-                'hinhanh' => 'chungnhan_thuc_pham_sach_4.jpg',
+                'hinhanh' => 'https://media.loveitopcdn.com/25/giay-vsattp.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'maNCC' => 4, 
-                'hinhanh' => 'chungnhan_huu_co_4.jpg',
+                'hinhanh' => 'https://tqc.vn/pic/Service/images/chung-chi-chung-nhan-huu-co-trong-trot-01-01-01.jpg',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -73,7 +73,7 @@ class TbChungNhanSeeder extends Seeder
             // Nhà cung cấp 5 có 1 chứng nhận
             [
                 'maNCC' => 5, 
-                'hinhanh' => 'chungnhan_organic_farming_5.jpg',
+                'hinhanh' => 'https://accgroup.vn/wp-content/uploads/2023/02/chung-chi-huu-co-trieu-phong-vi-en-1.jpg.webp',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
