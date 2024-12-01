@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id('maDonHang'); 
             $table->string('taiKhoan');
             $table->date('ngayDatHang'); 
-            $table->decimal('tongTien', 10, 2); 
+            $table->decimal('tongTien', 10, 0); 
             $table->string('trangThaiDonHang'); 
             $table->string('diaChiGiaoHang'); 
+            $table->string('sdt'); 
             $table->string('trangThaiThanhToan'); 
             $table->unsignedBigInteger('maNhanVienGiaoHang'); 
             $table->unsignedBigInteger('maNhanVienDuyet'); 

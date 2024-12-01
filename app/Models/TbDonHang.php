@@ -9,7 +9,7 @@ class TbDonHang extends Model
     use HasFactory;
 
     protected $table = 'tbdonhang';
-    protected $fillable = ['taiKhoan', 'ngayDatHang', 'tongTien', 'trangThaiDonHang', 'diaChiGiaoHang', 'trangThaiThanhToan', 'maNhanVienGiaoHang', 'maNhanVienDuyet'];
+    protected $fillable = ['taiKhoan', 'ngayDatHang', 'tongTien', 'trangThaiDonHang', 'diaChiGiaoHang','sdt', 'trangThaiThanhToan', 'maNhanVienGiaoHang', 'maNhanVienDuyet'];
 
     public function taiKhoan()
     {

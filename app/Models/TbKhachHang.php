@@ -11,7 +11,7 @@ class TbKhachHang extends Model
     protected $table = 'tbkhachhang';
     protected $primaryKey = 'maKhachHang';
 
-    protected $fillable = ['taiKhoan', 'sdt', 'diaChi'];
+    protected $fillable = ['taiKhoan', 'tenTaiKhoan', 'anhDaiDien', 'sdt', 'diaChi'];
 
     public function taiKhoan()
     {
