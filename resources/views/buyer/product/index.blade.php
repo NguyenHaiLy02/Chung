@@ -64,11 +64,11 @@
             background-color: #2ecc71;
         }
         .product-info .btn-cart {
-            background-color: #3498db;
+            background-color: #7bc548;
             color: white;
         }
         .product-info .btn-cart:hover {
-            background-color: #2980b9;
+            background-color: #7bc548;
         }
         .supplier-info {
             margin-left: 100px;

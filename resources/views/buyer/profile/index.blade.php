@@ -85,18 +85,18 @@
     }
 
     a:hover {
-        background-color: #007bff;
+        background-color: #7bc548;
         /* Màu nền khi hover */
         color: white;
         /* Màu chữ khi hover */
     }
 
     a.active-nav {
-    background-color: #007bff;
+    background-color: #7bc548;
     color: white;
     font-weight: bold;
     /* Đậm chữ để nổi bật */
-    border: 1px solid #0056b3;
+    border: 1px solid #7bc548;
     /* Tăng độ tương phản */
 }
 

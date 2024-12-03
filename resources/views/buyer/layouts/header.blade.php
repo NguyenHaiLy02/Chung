@@ -49,7 +49,7 @@
         .search-bar button {
             padding: 10px 20px;
             border: none;
-            background-color: #007bff;
+            background-color: #7bc548;
             color: white;
             border-radius: 0 8px 8px 0;
             /* Bo góc nhẹ */
@@ -57,7 +57,7 @@
         }
 
         .search-bar button:hover {
-            background-color: #0056b3;
+            background-color: #7bc548;
         }
 
         /* Icons */
@@ -89,7 +89,7 @@
 
         .icons .cart:hover,
         .icons .user:hover {
-            color: #007bff;
+            color: #7bc548;
         }
     </style>
 </head>
@@ -97,7 +97,7 @@
 <body>
     <header class="header">
         <div class="logo">
-            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="img-fluid">
+            <a href="{{ route('home.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="img-fluid"></a>     
         </div>
         <div class="search-bar">
             <input type="text" placeholder="Tìm kiếm sản phẩm..." />
