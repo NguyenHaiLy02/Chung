@@ -24,4 +24,5 @@ class TbChiTietDonHang extends Model
     {
         return $this->hasMany(DanhGiaSanPham::class, 'maChiTietDonHang', 'maChiTietDonHang');
     }
+
 }

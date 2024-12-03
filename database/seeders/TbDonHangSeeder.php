@@ -57,7 +57,7 @@ class TbDonHangSeeder extends Seeder
                 'taiKhoan' => 'NguyenVanB02', // Khách hàng 4
                 'ngayDatHang' => Carbon::now()->subDays(2)->toDateTimeString(),
                 'tongTien' => 1200000,
-                'trangThaiDonHang' => 'Hủy',
+                'trangThaiDonHang' => 'Đã hủy',
                 'diaChiGiaoHang' => '56 Đường Võ Văn Kiệt, Quận Ngũ Hành Sơn, Đà Nẵng',
                 'sdt' => '0912768923',
                 'trangThaiThanhToan' => 'Hoàn tiền',

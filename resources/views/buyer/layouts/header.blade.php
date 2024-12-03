@@ -113,14 +113,16 @@
                     @php
                         $buyerProfile = \App\Models\TbKhachHang::where('taiKhoan', session('username'))->first();
                     @endphp
-                    <div class="nav-item dropdown">
-                        <a href="#" style="height: 100%;color: #bf6d72;" class="nav-link dropdown-toggle"
+                    <div class="nav-item dropdown" style="display: flex; align-items: center; gap: 10px;">
+                        <img style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%; border: 2px solid #ddd;"
+                            src="{{ asset('storage/' . $buyerProfile->anhDaiDien) }}" alt="">
+                        <a href="#" style="color: #bf6d72; font-size: 20px;" class="nav-link dropdown-toggle"
                             onclick="toggleDropdown()" data-bs-toggle="dropdown">
                             {{ $buyerProfile->taiKhoan }}
                         </a>
+                    
                         <div id="userDropdown" class="dropdown-menu">
-                            <a href="#" class="dropdown-item"><i class="fa-solid fa-user"></i> Thông
-                                tin cá nhân</a>
+                            <a href="{{ url('/profile') }}" class="dropdown-item"><i class="fa-solid fa-user"></i> Thông tin cá nhân</a>
                             <a href="#" class="dropdown-item"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
@@ -128,9 +130,9 @@
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                 @csrf
                             </form>
-
                         </div>
                     </div>
+                    
                 @else
                     <a href="{{ route('login') }}">
                         <i class="fas fa-user-circle"></i>

@@ -6,6 +6,7 @@
     <p>Cảm ơn bạn đã mua sắm tại cửa hàng của chúng tôi!</p>
 
     <h3>Thông tin đơn hàng:</h3>
+    <p><strong>Mã đơn hàng:</strong> {{ $order->id }}</p>    
     <p><strong>Mã đơn hàng:</strong> {{ $order->id }}</p>
     <p><strong>Tổng tiền:</strong> {{ number_format($order->tongTien, 0, ',', '.') }} VNĐ</p>
 

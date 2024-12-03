@@ -46,3 +46,16 @@ use App\Http\Controllers\Buyer\OrderController;
 Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->name('order.create');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 
+
+
+use App\Http\Controllers\Buyer\ProfileController;
+
+    Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
+    Route::get('/password', [ProfileController::class, 'showChangePasswordForm'])->name('password.form');
+    Route::post('/password', [ProfileController::class, 'changePassword'])->name('password.change');
+
+    Route::get('/profile/edit/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/view', [ProfileController::class, 'viewOrders'])->name('orders');
+    Route::get('/orders/{maDonHang}', [ProfileController::class, 'viewOrderDetail'])->name('order.detail');
