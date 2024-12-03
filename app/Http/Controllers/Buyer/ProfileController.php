@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\TbTaiKhoan;
 use App\Models\TbKhachHang;
 use App\Models\TbDonHang;
+use App\Models\TbChiTietDonHang;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -81,6 +83,7 @@ class ProfileController extends Controller
             'Đang xử lý',
             'Đang vận chuyển',
             'Đã giao hàng',
+            'Đã nhận',
             'Đã hủy'
         ];
     
@@ -99,15 +102,44 @@ class ProfileController extends Controller
     
         return view('buyer.profile.viewOrders', compact('groupedOrders', 'statuses'));
     }
-    
-
     public function viewOrderDetail($maDonHang)
     {
+        // Fetch the order with related details
         $order = TbDonHang::with('chiTietDonHangs.sanPham')
-            ->where('maDonHang', $maDonHang)
-            ->firstOrFail();
+                    ->where('maDonHang', $maDonHang)
+                    ->first();
 
-        return view('buyer.profile.orderDetail', compact('order'));
+        // Fetch the order details using raw SQL query
+        $orderDetails = DB::table('tbdonhang')
+            ->join('tbchitietdonhang', 'tbdonhang.maDonHang', '=', 'tbchitietdonhang.maDonHang')
+            ->join('tbsanpham', 'tbchitietdonhang.maSanPham', '=', 'tbsanpham.maSanPham')
+            ->join('tbhinhanhsp', 'tbsanpham.maSanPham', '=', 'tbhinhanhsp.maSanPham')
+            ->where('tbdonhang.maDonHang', '=', $maDonHang)
+            ->select(
+                'tbdonhang.maDonHang',
+                'tbdonhang.tongTien',
+                'tbdonhang.ngayDatHang',
+                'tbdonhang.trangThaiDonHang',
+                'tbdonhang.trangThaiThanhToan',
+                DB::raw('MAX(tbhinhanhsp.hinhAnh) AS hinhAnh'),
+                'tbsanpham.tenSanPham',
+                'tbchitietdonhang.soLuong',
+                'tbchitietdonhang.donGia'
+            )
+            ->groupBy(
+                'tbdonhang.maDonHang',
+                'tbdonhang.tongTien',
+                'tbdonhang.ngayDatHang',
+                'tbdonhang.trangThaiDonHang',
+                'tbdonhang.trangThaiThanhToan',
+                'tbsanpham.tenSanPham',
+                'tbchitietdonhang.soLuong',
+                'tbchitietdonhang.donGia'
+            )
+            ->get();
+
+        return view('buyer.profile.orderDetail', compact('orderDetails', 'order'));
     }
 
+    
 }

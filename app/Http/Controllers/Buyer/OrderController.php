@@ -141,10 +141,20 @@ class OrderController extends Controller
 
         return back()->with('error', 'Lỗi khi đặt hàng!');
     }
-
-    public function confirm(Request $request)
+    public function confirmAll($orderId)
     {
-        // Xử lý logic xác nhận đơn hàng tại đây
-        return redirect()->route('order.store');  // Hoặc xử lý theo yêu cầu của bạn
+        // Tìm đơn hàng theo 'maDonHang'
+        $order = TbDonHang::where('maDonHang', $orderId)->first();
+    
+        // Kiểm tra nếu đơn hàng tồn tại
+        if ($order) {
+            $order->trangThaiDonHang = 'Đã nhận'; // Cập nhật trạng thái đơn hàng
+            $order->save(); // Lưu thay đổi
+        }
+    
+        // Quay lại trang đơn hàng
+        return redirect()->route('orders');
     }
+    
+
 }

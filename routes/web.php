@@ -59,3 +59,6 @@ use App\Http\Controllers\Buyer\ProfileController;
 
     Route::get('/view', [ProfileController::class, 'viewOrders'])->name('orders');
     Route::get('/orders/{maDonHang}', [ProfileController::class, 'viewOrderDetail'])->name('order.detail');
+    
+    Route::put('/order/confirmAll/{order}', [OrderController::class, 'confirmAll'])->name('order.confirmAll');
+
