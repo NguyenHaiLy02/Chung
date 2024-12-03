@@ -22,6 +22,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0912345678',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 1, // Rau củ quả
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'Vinmart',
@@ -30,6 +31,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0987654321',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 1, // Rau củ quả
+                'pheDuyet' => true,
             ],
 
             // Thịt sống
@@ -40,6 +42,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0911234567',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 2, // Thịt sống
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'FarmingVietnam',
@@ -48,6 +51,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0945456767',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 2, // Thịt sống
+                'pheDuyet' => true,
             ],
 
             // Hải sản
@@ -58,6 +62,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0933445566',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 3, // Hải sản
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'FoodConnect',
@@ -66,6 +71,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0902123344',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 3, // Hải sản
+                'pheDuyet' => true,
             ],
 
             // Trái cây tươi
@@ -76,6 +82,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0977888999',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 4, // Trái cây tươi
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'FruitsGarden',
@@ -84,6 +91,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0922334455',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 4, // Trái cây tươi
+                'pheDuyet' => true,
             ],
 
             // Ngũ cốc và hạt
@@ -94,6 +102,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0902123456',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 5, // Ngũ cốc và hạt
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'RiceWorld',
@@ -102,6 +111,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0932323232',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 5, // Ngũ cốc và hạt
+                'pheDuyet' => true,
             ],
 
             // Gia vị và thảo mộc
@@ -112,6 +122,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0987654321',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 6, // Gia vị và thảo mộc
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'HerbGarden',
@@ -120,6 +131,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0912345678',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 6, // Gia vị và thảo mộc
+                'pheDuyet' => true,
             ],
 
             // Sữa và các sản phẩm từ sữa
@@ -130,6 +142,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0911223344',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 7, // Sữa và các sản phẩm từ sữa
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'MilkHouse',
@@ -138,6 +151,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0982334455',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 7, // Sữa và các sản phẩm từ sữa
+                'pheDuyet' => true,
             ],
 
             // Bánh kẹo và đồ ăn vặt
@@ -148,6 +162,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0901011122',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 8, // Bánh kẹo và đồ ăn vặt
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'HealthyTreats',
@@ -156,6 +171,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0922334455',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 8, // Bánh kẹo và đồ ăn vặt
+                'pheDuyet' => true,
             ],
 
             // Đồ uống
@@ -166,6 +182,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0945678901',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 9, // Đồ uống
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'DrinkShop',
@@ -174,6 +191,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0908765432',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 9, // Đồ uống
+                'pheDuyet' => true,
             ],
 
             // Dầu ăn và gia vị chế biến
@@ -184,6 +202,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0902123444',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 10, // Dầu ăn và gia vị chế biến
+                'pheDuyet' => true,
             ],
             [
                 'taiKhoan' => 'HerbOil',
@@ -192,6 +211,7 @@ class TbNhaCungCapSeeder extends Seeder
                 'sdt' => '0922334455',
                 'xuatXu' => 'Việt Nam',
                 'maDanhMuc' => 10, // Dầu ăn và gia vị chế biến
+                'pheDuyet' => true,
             ],
 
             // Mì, phở và thực phẩm chế biến sẵn

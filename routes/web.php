@@ -45,3 +45,8 @@ use App\Http\Controllers\Buyer\OrderController;
 
 Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->name('order.create');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+
+use App\Http\Controllers\Auth\SupplierController;
+
+Route::get('/register-supplier', [SupplierController::class, 'showForm'])->name('supplier.form');
+Route::post('/register-supplier', [SupplierController::class, 'register'])->name('supplier.register');
