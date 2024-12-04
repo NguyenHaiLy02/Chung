@@ -50,3 +50,7 @@ use App\Http\Controllers\Auth\SupplierController;
 
 Route::get('/register-supplier', [SupplierController::class, 'showForm'])->name('supplier.form');
 Route::post('/register-supplier', [SupplierController::class, 'register'])->name('supplier.register');
+
+use App\Http\Controllers\Buyer\CartController;
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
