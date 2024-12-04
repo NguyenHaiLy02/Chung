@@ -65,3 +65,9 @@ use App\Http\Controllers\Auth\SupplierController;
 
 Route::get('/register-supplier', [SupplierController::class, 'showForm'])->name('supplier.form');
 Route::post('/register-supplier', [SupplierController::class, 'register'])->name('supplier.register');
+
+use App\Http\Controllers\Buyer\CartController;
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');

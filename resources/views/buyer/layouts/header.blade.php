@@ -105,9 +105,17 @@
         </div>
         <div class="icons">
             <div class="cart">
-                <i class="fas fa-cart-plus"></i>
-                <span class="badge">3</span>
-            </div>
+                <a href="{{ route('cart.index') }}" class="text-decoration-none position-relative">
+                    <i class="fas fa-cart-plus fs-3 text-dark"></i>
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                        @if (auth()->check())
+                            {{ \App\Models\TbGioHang::where('taiKhoan', auth()->user()->taiKhoan)->sum('soLuong') }}
+                        @else
+                            0
+                        @endif
+                    </span>
+                </a>
+            </div>                                  
             <div class="user">
                 @if (session('username'))
                     @php
