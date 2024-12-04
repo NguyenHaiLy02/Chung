@@ -18,13 +18,14 @@ return new class extends Migration
             $table->string('diaChi');
             $table->string('sdt');
             $table->string('xuatXu');
+            $table->boolean('pheDuyet')->default(false); // Thêm cột pheDuyet với giá trị mặc định là false
             $table->unsignedBigInteger('maDanhMuc');
             $table->timestamps();
 
             $table->foreign('taiKhoan')
-            ->references('taiKhoan')->on('tbtaikhoan')->onUpdate('cascade')->onDelete('cascade');
+                ->references('taiKhoan')->on('tbtaikhoan')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('maDanhMuc')
-            ->references('maDanhMuc')->on('tbdanhmuc')->onUpdate('cascade')->onDelete('cascade');
+                ->references('maDanhMuc')->on('tbdanhmuc')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

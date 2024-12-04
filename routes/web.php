@@ -47,7 +47,6 @@ Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->nam
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 
 
-
 use App\Http\Controllers\Buyer\ProfileController;
 
     Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
@@ -62,3 +61,7 @@ use App\Http\Controllers\Buyer\ProfileController;
     
     Route::put('/order/confirmAll/{order}', [OrderController::class, 'confirmAll'])->name('order.confirmAll');
 
+use App\Http\Controllers\Auth\SupplierController;
+
+Route::get('/register-supplier', [SupplierController::class, 'showForm'])->name('supplier.form');
+Route::post('/register-supplier', [SupplierController::class, 'register'])->name('supplier.register');

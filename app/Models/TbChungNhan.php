@@ -9,7 +9,7 @@ class TbChungNhan extends Model
     use HasFactory;
 
     protected $table = 'tbchungnhan';
-    protected $fillable = ['maNCC', 'hinhAnh'];
+    protected $fillable = ['maNCC', 'hinhanh'];
 
     public function nhaCungCap()
     {
