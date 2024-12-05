@@ -11,8 +11,6 @@ class TbGioHang extends Model
     protected $table = 'tbgiohang';
     protected $fillable = ['taiKhoan', 'maSanPham', 'soLuong'];
 
-    public $incrementing = false; // Không tự động tăng vì dùng composite key
-
     public function taiKhoan()
     {
         return $this->belongsTo(TbTaiKhoan::class, 'taiKhoan');

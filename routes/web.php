@@ -45,6 +45,7 @@ use App\Http\Controllers\Buyer\OrderController;
 
 Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->name('order.create');
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+Route::post('/order/fromCart', [OrderController::class, 'fromCart'])->name('order.fromCart');
 
 
 use App\Http\Controllers\Buyer\ProfileController;
@@ -66,8 +67,19 @@ use App\Http\Controllers\Auth\SupplierController;
 Route::get('/register-supplier', [SupplierController::class, 'showForm'])->name('supplier.form');
 Route::post('/register-supplier', [SupplierController::class, 'register'])->name('supplier.register');
 
+
 use App\Http\Controllers\Buyer\CartController;
 
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::get('/cart', [CartController::class, 'showCart'])->name('cart.index');
+Route::post('/cart/calculate-total', [CartController::class, 'calculateTotal'])->name('cart.calculateTotal');
+Route::patch('/cart/update-quantity/{id}', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+Route::delete('/cart/remove-item/{id}', [CartController::class, 'removeItem'])->name('cart.removeItem');
+
+Route::post('/cart/place-order', [CartController::class, 'placeOrder'])->name('cart.placeOrder');
+
+
+Route::post('/order/confirm', [OrderController::class, 'confirmOrder'])->name('order.confirm');
+Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
+
+

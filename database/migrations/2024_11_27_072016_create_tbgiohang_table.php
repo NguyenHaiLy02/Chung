@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tbgiohang', function (Blueprint $table) {
+            $table->id();
             $table->string('taiKhoan'); 
             $table->unsignedBigInteger('maSanPham'); 
             $table->integer('soLuong'); 
@@ -19,7 +20,6 @@ return new class extends Migration
             
             $table->foreign('taiKhoan')->references('taiKhoan')->on('tbtaikhoan')->onDelete('cascade');
             $table->foreign('maSanPham')->references('maSanPham')->on('tbsanpham')->onDelete('cascade');
-            $table->primary(['taiKhoan', 'maSanPham']);
         });
     }
 
