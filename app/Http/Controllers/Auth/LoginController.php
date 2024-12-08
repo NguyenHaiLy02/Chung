@@ -69,7 +69,8 @@ class LoginController extends Controller
                     session()->put('username', $user->taiKhoan);
                     return redirect()->route('home.index')->with('success', 'Đăng nhập thành công.');
                 case 'chucuahang':
-                    return redirect()->route('')->with('success', 'Đăng nhập thành công.');
+                    session()->put('username', $user->taiKhoan);
+                    return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công.');
                 case 'nhanvien':
                     return redirect()->route('')->with('success', 'Đăng nhập thành công.');
                 case 'nhanviengiaohang':

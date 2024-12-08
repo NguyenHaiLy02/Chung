@@ -86,3 +86,7 @@ Route::post('/orders/confirm/{maDonHang}', [OrderController::class, 'confirmOrde
 
 Route::post('/danhgia', [ProfileController::class, 'store'])->name('danhgia.store');
 
+
+use App\Http\Controllers\Owner\DashboardController;
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
