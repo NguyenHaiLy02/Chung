@@ -9,6 +9,7 @@ class TbChiTietDonHang extends Model
     use HasFactory;
 
     protected $table = 'tbchitietdonhang';
+    protected $primaryKey = 'maChiTietDonHang';
     protected $fillable = ['maDonHang', 'maSanPham', 'soLuong', 'donGia'];
 
     public function donHang()

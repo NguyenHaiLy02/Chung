@@ -150,5 +150,17 @@ class OrderController extends Controller
         return redirect()->route('orders');
     }
     
-
+    public function confirmOrder(Request $request, $maDonHang)
+    {
+        $order = TbDonHang::where('maDonHang', $maDonHang)->first();
+    
+        if (!$order) {
+            return response()->json(['success' => false, 'message' => 'Đơn hàng không tồn tại'], 404);
+        }
+    
+        $order->trangThaiDonHang = $request->status;
+        $order->save();
+    
+        return response()->json(['success' => true, 'message' => 'Trạng thái đã được cập nhật']);
+    }
 }

@@ -84,7 +84,7 @@
             background-color: red;
             color: white;
             border-radius: 50%;
-            font-size: 12px;
+            font-size: 18px;
             padding: 2px 6px;
         }
 
@@ -108,7 +108,7 @@
             <div class="cart">
                 <a href="{{ route('cart.index') }}" class="text-decoration-none position-relative">
                     <i class="fas fa-cart-plus fs-3 text-dark"></i>
-                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="color:#ff0000 ">
                         @if (auth()->check())
                             {{ \App\Models\TbGioHang::where('taiKhoan', auth()->user()->taiKhoan)->sum('soLuong') }}
                         @else

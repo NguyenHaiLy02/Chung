@@ -8,6 +8,7 @@ use App\Models\TbTaiKhoan;
 use App\Models\TbKhachHang;
 use App\Models\TbDonHang;
 use App\Models\TbChiTietDonHang;
+use App\Models\DanhGiaSanPham;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -80,28 +81,30 @@ class ProfileController extends Controller
     public function viewOrders()
     {
         $statuses = [
+            'Tất cả đơn hàng',
             'Đang xử lý',
             'Đang vận chuyển',
-            'Đã giao hàng',
-            'Đã nhận',
+            'Hoàn thành',
             'Đã hủy'
         ];
-    
+
         // Gộp đơn hàng theo trạng thái
-        $orders = TbDonHang::where('taiKhoan', session('username'))
+        $allOrders = TbDonHang::where('taiKhoan', session('username'))
             ->with('chiTietDonHangs.sanPham')
             ->orderBy('ngayDatHang', 'desc')
-            ->get()
-            ->groupBy('trangThaiDonHang');
-    
-        // Đảm bảo trạng thái cố định luôn xuất hiện
-        $groupedOrders = [];
-        foreach ($statuses as $status) {
-            $groupedOrders[$status] = $orders->get($status, collect());
-        }
-    
+            ->get();
+
+        $groupedOrders = [
+            'Tất cả đơn hàng' => $allOrders,
+            'Đang xử lý' => $allOrders->where('trangThaiDonHang', 'Đang xử lý'),
+            'Đang vận chuyển' => $allOrders->where('trangThaiDonHang', 'Đang vận chuyển'),
+            'Hoàn thành' => $allOrders->whereIn('trangThaiDonHang', ['Đã giao hàng', 'Đã nhận', 'Đã đánh giá']),
+            'Đã hủy' => $allOrders->where('trangThaiDonHang', 'Đã hủy'),
+        ];
+
         return view('buyer.profile.viewOrders', compact('groupedOrders', 'statuses'));
     }
+
     public function viewOrderDetail($maDonHang)
     {
         // Fetch the order with related details
@@ -123,8 +126,10 @@ class ProfileController extends Controller
                 'tbdonhang.trangThaiThanhToan',
                 DB::raw('MAX(tbhinhanhsp.hinhAnh) AS hinhAnh'),
                 'tbsanpham.tenSanPham',
+                'tbchitietdonhang.maChiTietDonHang',
                 'tbchitietdonhang.soLuong',
-                'tbchitietdonhang.donGia'
+                'tbchitietdonhang.donGia',
+                'tbchitietdonhang.daDanhGia'
             )
             ->groupBy(
                 'tbdonhang.maDonHang',
@@ -133,13 +138,35 @@ class ProfileController extends Controller
                 'tbdonhang.trangThaiDonHang',
                 'tbdonhang.trangThaiThanhToan',
                 'tbsanpham.tenSanPham',
+                'tbchitietdonhang.maChiTietDonHang',
                 'tbchitietdonhang.soLuong',
-                'tbchitietdonhang.donGia'
+                'tbchitietdonhang.donGia',
+                'tbchitietdonhang.daDanhGia'
             )
             ->get();
 
         return view('buyer.profile.orderDetail', compact('orderDetails', 'order'));
     }
 
-    
+    public function store(Request $request)
+    {
+        // Validate dữ liệu
+        $request->validate([
+            'maChiTietDonHang' => 'required|exists:tbchitietdonhang,maChiTietDonHang',
+            'soLuongSao' => 'required|integer|min:1|max:5',
+            'noiDung' => 'nullable|string|max:500',
+        ]);
+
+        // Lưu đánh giá
+        DanhGiaSanPham::create([
+            'maChiTietDonHang' => $request->maChiTietDonHang,
+            'soLuongSao' => $request->soLuongSao,
+            'noiDung' => $request->noiDung,
+        ]);
+        TbChiTietDonHang::where('maChiTietDonHang', $request->maChiTietDonHang)
+        ->update(['daDanhGia' => true]);
+
+        // Redirect về trang chi tiết đơn hàng với thông báo thành công
+        return redirect()->back()->with('success', 'Đánh giá sản phẩm thành công!');
+    }
 }

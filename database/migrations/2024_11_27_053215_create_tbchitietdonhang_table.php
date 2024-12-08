@@ -17,11 +17,13 @@ return new class extends Migration
             $table->unsignedBigInteger('maSanPham'); 
             $table->integer('soLuong');
             $table->decimal('donGia', 10, 2); 
+            $table->boolean('daDanhGia')->default(false); // Cột trạng thái đánh giá
             $table->timestamps();
             
             $table->foreign('maDonHang')->references('maDonHang')->on('tbdonhang')->onDelete('cascade');
             $table->foreign('maSanPham')->references('maSanPham')->on('tbsanpham')->onDelete('cascade');
         });
+        
     }
 
     /**

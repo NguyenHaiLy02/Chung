@@ -81,5 +81,8 @@ Route::post('/cart/place-order', [CartController::class, 'placeOrder'])->name('c
 
 Route::post('/order/confirm', [OrderController::class, 'confirmOrder'])->name('order.confirm');
 Route::get('/order/success', [OrderController::class, 'orderSuccess'])->name('order.success');
+Route::post('/orders/confirm/{maDonHang}', [OrderController::class, 'confirmOrder'])->name('order.confirm');
 
+
+Route::post('/danhgia', [ProfileController::class, 'store'])->name('danhgia.store');
 

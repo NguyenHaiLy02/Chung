@@ -225,7 +225,7 @@
                 @foreach ($chiTiet->danhGiaSanPhams as $danhGia)
                     <div style="margin-bottom: 10px;">
                         <p><strong>Số sao: </strong>{{ $danhGia->soLuongSao }} sao</p>
-                        <p><strong>Nội dung: </strong>{{ $danhGia->noiDungDanhGia }}</p>
+                        <p><strong>Nội dung: </strong>{{ $danhGia->noiDung }}</p>
                     </div>
                 @endforeach
             @endforeach

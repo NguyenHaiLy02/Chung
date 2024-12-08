@@ -31,6 +31,6 @@
         </tbody>
     </table>
 
-    <a href="#" style="text-decoration: none; color: white; background-color: #3498db; padding: 10px 20px; border-radius: 5px;">Quay lại trang chủ</a>
+    <a href="{{ route('home.index') }}" style="text-decoration: none; color: white; background-color: #3498db; padding: 10px 20px; border-radius: 5px;">Quay lại trang chủ</a>
 </div>
 @endsection
