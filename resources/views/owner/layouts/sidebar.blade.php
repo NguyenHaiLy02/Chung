@@ -57,26 +57,39 @@
                     </li>
                 @endif
 
-
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
                         <i class="nav-icon fas fa-bars"></i>
-                        <p> Danh Mục</p>
+                        <p> Quản lý tài khoản </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
+                    <a href="{{ route('owner.category.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fas fa-bars"></i>
+                        <p> Danh Mục</p>
+                    </a>
+                </li>
+                
+
+                <li class="nav-item">
                     <a href="#" class="nav-link text-white">
                         <i class="nav-icon fas fa-users"></i>
-                        <p> Người bán
-                        </p>
+                        <p> Nhà cung cấp </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
                         <i class="nav-icon fas fa-tag"></i>
-                        <p> Mã giảm giá </p>
+                        <p> Sản phẩm </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p> Lịch sử nhập hàng </p>
                     </a>
                 </li>
             </ul>
