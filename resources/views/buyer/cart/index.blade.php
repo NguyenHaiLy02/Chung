@@ -27,8 +27,10 @@
                             </td>
                             <td>{{ $item->sanPham->tenSanPham }}</td>
                             <td>
-                                <img src="{{ $item->sanPham->hinhAnhSps->first()->hinhAnh }}"
+                                <img src="{{ $item->sanPham->hinhAnhSps->isNotEmpty() ? asset('storage/' . $item->sanPham->hinhAnhSps->first()->hinhAnh) : asset('path/to/default-image.jpg') }}"
                                     alt="{{ $item->sanPham->tenSanPham }}" width="100">
+
+
                             </td>
                             <td>{{ number_format($item->sanPham->giaTien, 0, ',', '.') }} VNĐ</td>
                             <td>
@@ -69,82 +71,85 @@
 
     <script>
         function updateTotalPrice() {
-        let total = 0;
-        document.querySelectorAll('.item-checkbox:checked').forEach(function(checkbox) {
-            const row = checkbox.closest('tr');
-            const totalPrice = parseInt(
-                row.querySelector('td:nth-child(6)').innerText.replace(' VNĐ', '').replaceAll('.', ''), // Cột 6 là tổng cộng
-                10
-            );
-            total += totalPrice;
-        });
-        document.getElementById('totalAmount').innerText = total.toLocaleString() + ' VNĐ';
-    }
+            let total = 0;
+            document.querySelectorAll('.item-checkbox:checked').forEach(function(checkbox) {
+                const row = checkbox.closest('tr');
+                const totalPrice = parseInt(
+                    row.querySelector('td:nth-child(6)').innerText.replace(' VNĐ', '').replaceAll('.',
+                    ''), // Cột 6 là tổng cộng
+                    10
+                );
+                total += totalPrice;
+            });
+            document.getElementById('totalAmount').innerText = total.toLocaleString() + ' VNĐ';
+        }
 
-    // Event listener for checkbox selection
-    document.querySelectorAll('.item-checkbox').forEach(function(checkbox) {
-        checkbox.addEventListener('change', updateTotalPrice);
-    });
-
-    // Event listener for "Select All" checkbox
-    document.getElementById('selectAll').addEventListener('change', function() {
-        const isChecked = this.checked;
+        // Event listener for checkbox selection
         document.querySelectorAll('.item-checkbox').forEach(function(checkbox) {
-            checkbox.checked = isChecked;
+            checkbox.addEventListener('change', updateTotalPrice);
         });
-        updateTotalPrice();
-    });
 
-    // AJAX to update quantity
-    function updateQuantity(id, quantity) {
-        fetch(`/cart/update-quantity/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-            },
-            body: JSON.stringify({ soLuong: quantity })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                const row = document.querySelector(`.quantity-input[data-id="${id}"]`).closest('tr');
-                row.querySelector('td:nth-child(6)').innerText = data.totalPrice; // Cột tổng cộng
-                updateTotalPrice(); // Tính lại tổng giá trị giỏ hàng
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-
-    // Event listener for quantity buttons and input
-    document.querySelectorAll('.decrease-quantity').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.dataset.id;
-            const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
-            const newValue = Math.max(1, parseInt(input.value) - 1);
-            input.value = newValue;
-            updateQuantity(id, newValue);
+        // Event listener for "Select All" checkbox
+        document.getElementById('selectAll').addEventListener('change', function() {
+            const isChecked = this.checked;
+            document.querySelectorAll('.item-checkbox').forEach(function(checkbox) {
+                checkbox.checked = isChecked;
+            });
+            updateTotalPrice();
         });
-    });
 
-    document.querySelectorAll('.increase-quantity').forEach(button => {
-        button.addEventListener('click', function () {
-            const id = this.dataset.id;
-            const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
-            const newValue = parseInt(input.value) + 1;
-            input.value = newValue;
-            updateQuantity(id, newValue);
-        });
-    });
+        // AJAX to update quantity
+        function updateQuantity(id, quantity) {
+            fetch(`/cart/update-quantity/${id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        soLuong: quantity
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        const row = document.querySelector(`.quantity-input[data-id="${id}"]`).closest('tr');
+                        row.querySelector('td:nth-child(6)').innerText = data.totalPrice; // Cột tổng cộng
+                        updateTotalPrice(); // Tính lại tổng giá trị giỏ hàng
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
-    document.querySelectorAll('.quantity-input').forEach(input => {
-        input.addEventListener('change', function () {
-            const id = this.dataset.id;
-            const newValue = Math.max(1, parseInt(this.value));
-            this.value = newValue;
-            updateQuantity(id, newValue);
+        // Event listener for quantity buttons and input
+        document.querySelectorAll('.decrease-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+                const newValue = Math.max(1, parseInt(input.value) - 1);
+                input.value = newValue;
+                updateQuantity(id, newValue);
+            });
         });
-    });
+
+        document.querySelectorAll('.increase-quantity').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.dataset.id;
+                const input = document.querySelector(`.quantity-input[data-id="${id}"]`);
+                const newValue = parseInt(input.value) + 1;
+                input.value = newValue;
+                updateQuantity(id, newValue);
+            });
+        });
+
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', function() {
+                const id = this.dataset.id;
+                const newValue = Math.max(1, parseInt(this.value));
+                this.value = newValue;
+                updateQuantity(id, newValue);
+            });
+        });
 
         // Sự kiện cho nút xóa sản phẩm
         document.querySelectorAll('.delete-item').forEach(button => {

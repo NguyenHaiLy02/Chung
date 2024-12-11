@@ -36,8 +36,9 @@
                 @foreach ($orderDetails as $detail)
                     <tr>
                         <td>
-                            <img src="{{ $detail->hinhAnh }}" alt="{{ $detail->tenSanPham }}"
+                            <img src="{{ asset('storage/' . $detail->hinhAnh) }}" alt="{{ $detail->tenSanPham }}"
                                 style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">
+
                         </td>
                         <td>{{ $detail->tenSanPham }}</td>
                         <td>{{ $detail->soLuong }}</td>
