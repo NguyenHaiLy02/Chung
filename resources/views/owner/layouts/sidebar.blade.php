@@ -1,6 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #161b2c">
     <div class="logo">
-        <a href="{{ route('dashboard.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="img-fluid"></a>     
+        <a href="{{ route('dashboard.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo"
+                class="img-fluid"></a>
     </div>
     <div class="sidebar">
 
@@ -70,7 +71,7 @@
                         <p> Danh Mục</p>
                     </a>
                 </li>
-                
+
 
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
@@ -80,11 +81,12 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ route('owner.product.index') }}" class="nav-link text-white">
                         <i class="nav-icon fas fa-tag"></i>
                         <p> Sản phẩm </p>
                     </a>
                 </li>
+
 
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">

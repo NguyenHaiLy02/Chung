@@ -90,9 +90,12 @@ Route::post('/danhgia', [ProfileController::class, 'store'])->name('danhgia.stor
 
 use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\CategoryController;
+use App\Http\Controllers\Owner\ProductController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-Route::prefix('dashboard')->name('owner.')->group(function () {
+Route::prefix('owner')->name('owner.')->group(function () {
     Route::resource('category', CategoryController::class);
+    Route::resource('product', ProductController::class);
 });
+

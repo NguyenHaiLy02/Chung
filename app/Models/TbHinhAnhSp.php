@@ -9,6 +9,7 @@ class TbHinhAnhSp extends Model
     use HasFactory;
 
     protected $table = 'tbhinhanhsp';
+    protected $primaryKey = 'maHinhAnh';
     protected $fillable = ['maSanPham', 'hinhAnh'];
 
     public function sanPham()
