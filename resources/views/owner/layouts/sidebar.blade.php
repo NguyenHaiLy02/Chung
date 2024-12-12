@@ -86,7 +86,12 @@
                         <p> Sản phẩm </p>
                     </a>
                 </li>
-
+                <li class="nav-item">
+                    <a href="{{ route('owner.orders')}}" class="nav-link text-white">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p> Quản lý đơn </p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">

@@ -91,6 +91,7 @@ Route::post('/danhgia', [ProfileController::class, 'store'])->name('danhgia.stor
 use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\CategoryController;
 use App\Http\Controllers\Owner\ProductController;
+use App\Http\Controllers\Owner\OwnerOrderController;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -99,3 +100,6 @@ Route::prefix('owner')->name('owner.')->group(function () {
     Route::resource('product', ProductController::class);
 });
 
+
+Route::get('/owner/orders', [OwnerOrderController::class, 'viewOrders'])->name('owner.orders');
+Route::get('/owner/orders/{maDonHang}', [OwnerOrderController::class, 'viewOrderDetail'])->name('owner.order.detail');
