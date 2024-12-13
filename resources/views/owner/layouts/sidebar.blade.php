@@ -46,21 +46,25 @@
                         </p>
                     </a>
                 </li>
-                @if (session('username') == 'duchoang')
-                    <li class="nav-item">
-                        <a href="#" class="nav-link text-white">
-                            <i class="nav-icon fas fa-store"></i>
-                            <p>
-                                Tài Khoản Admin
-                            </p>
-                        </a>
-                    </li>
-                @endif
+               
+                <li class="nav-item">
+                    <a href="{{ route('owner.customer_management.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p> Quản lý khách hàng </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('owner.employee_management.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fas fa-user-tie"></i>
+                        <p> Quản lý nhân viên </p>
+                    </a>
+                </li>            
 
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
-                        <i class="nav-icon fas fa-bars"></i>
-                        <p> Quản lý tài khoản </p>
+                        <i class="nav-icon fas fa-users"></i>
+                        <p> Quản lý nhà cung cấp </p>
                     </a>
                 </li>
 
@@ -70,25 +74,24 @@
                         <p> Danh Mục</p>
                     </a>
                 </li>
-                
 
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p> Nhà cung cấp </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
-                        <i class="nav-icon fas fa-tag"></i>
+                        <i class="nav-icon fas fa-warehouse"></i>
                         <p> Sản phẩm </p>
                     </a>
                 </li>
 
                 <li class="nav-item">
+                    <a href="" class="nav-link text-white">
+                        <i class="nav-icon fas fa-receipt"></i>
+                        <p> Quản lý đơn hàng </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a href="#" class="nav-link text-white">
-                        <i class="nav-icon fas fa-tag"></i>
+                        <i class="nav-icon fas fa-history"></i>
                         <p> Lịch sử nhập hàng </p>
                     </a>
                 </li>
