@@ -11,7 +11,7 @@ class TbNhaCungCap extends Model
     protected $table = 'tbnhacungcap';
     protected $primaryKey = 'maNCC';
 
-    protected $fillable = ['taiKhoan', 'tenNCC', 'diaChi', 'sdt', 'xuatXu', 'maDanhMuc'];
+    protected $fillable = ['taiKhoan', 'tenNCC', 'diaChi', 'sdt', 'xuatXu','pheDuyet', 'maDanhMuc'];
 
     public function taiKhoan()
     {
@@ -26,5 +26,9 @@ class TbNhaCungCap extends Model
     public function sanPhams()
     {
         return $this->hasMany(TbSanPham::class, 'maNCC', 'maNCC');
+    }
+    public function chungNhans()
+    {
+        return $this->hasMany(TbChungNhan::class, 'maNCC', 'maNCC');
     }
 }

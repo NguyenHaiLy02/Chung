@@ -18,10 +18,14 @@
                     <tr>
                         <td>
                             @if ($sanPham->hinhAnhSps->isNotEmpty())
-                                <img src="{{ asset($sanPham->hinhAnhSps->first()->hinhAnh) }}" alt="{{ $sanPham->tenSanPham }}" style="max-width: 150px;"/>
+                                <img src="{{ asset('storage/' . $sanPham->hinhAnhSps->first()->hinhAnh) }}"
+                                    alt="{{ $sanPham->tenSanPham }}" style="max-width: 150px;" />
                             @else
-                                <img src="{{ asset('images/no-image.png') }}" alt="No Image Available" style="max-width: 150px;"/>
+                                <img src="{{ asset('images/no-image.png') }}" alt="No Image Available"
+                                    style="max-width: 150px;" />
                             @endif
+
+
                         </td>
                         <td>{{ $sanPham->tenSanPham }}</td>
                         <td>{{ $sanPham->moTa }}</td>
@@ -31,38 +35,42 @@
                     </tr>
                 </tbody>
             </table>
-            
+
             <!-- Payment Section -->
             <form action="{{ route('order.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="sanPhamId" value="{{ $sanPham->maSanPham }}">
                 <input type="hidden" name="quantity" value="{{ $quantity }}">
                 <input type="hidden" name="totalPrice" value="{{ $sanPham->giaTien * $quantity }}">
-            
+
                 <div class="payment-options" style="text-align: right;">
                     <label for="paymentMethod" style="font-size: 14px; margin-bottom: 5px;">Phương thức thanh toán:</label>
-                    <select name="paymentMethod" id="paymentMethod" required style="font-size: 14px; padding: 5px; width: auto; max-width: 200px;margin-right: 50px;">
+                    <select name="paymentMethod" id="paymentMethod" required
+                        style="font-size: 14px; padding: 5px; width: auto; max-width: 200px;margin-right: 50px;">
                         <option value="cod">Thanh toán khi nhận hàng</option>
-                        <option value="nvpay">Thanh toán NVPay</option>
+                        <option value="nvpay">Thanh toán VNPay</option>
                     </select>
                 </div>
-            
+
                 <!-- Delivery Address and Phone Number (optional but recommended for COD) -->
                 <div>
-                    <label for="address">Địa chỉ giao hàng:</label>
-                    <input type="text" name="address" required placeholder="Nhập địa chỉ giao hàng" style="padding: 8px; font-size: 14px; width: 100%; margin-bottom: 10px;">
+                    <label for="address" style="font-size: 14px; font-weight: bold; margin-bottom: 8px; display: block;">Địa chỉ giao hàng:</label>
+                    <input type="text" name="address" required placeholder="Nhập địa chỉ giao hàng"
+                        style="padding: 10px; font-size: 14px; width: 50%; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; margin-bottom: 15px;">
                 </div>
                 
                 <div>
-                    <label for="phone">Số điện thoại:</label>
-                    <input type="text" name="phone" required placeholder="Nhập số điện thoại" style="padding: 8px; font-size: 14px; width: 100%; margin-bottom: 10px;">
-                </div>
-                
-                <button type="submit" class="btn btn-buy" style="padding: 8px 16px; font-size: 14px; width: auto; max-width: 200px; display: block; margin-top: 10px; margin-left: auto;margin-right: 50px;">
+                    <label for="phone" style="font-size: 14px; font-weight: bold; margin-bottom: 8px; display: block;">Số điện thoại:</label>
+                    <input type="text" name="phone" required placeholder="Nhập số điện thoại"
+                        style="padding: 10px; font-size: 14px; width: 50%; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; margin-bottom: 15px;">
+                </div>                
+
+                <button type="submit" class="btn btn-buy"
+                    style="padding: 8px 16px; font-size: 14px; width: auto; max-width: 200px; display: block; margin-top: 10px; margin-left: auto;margin-right: 50px;">
                     Đặt hàng
                 </button>
             </form>
-            
+
         </div>
     </div>
 @endsection
@@ -72,10 +80,11 @@
         width: 100%;
         border-collapse: collapse;
         overflow-x: auto;
-        
+
     }
 
-    .scrollable-table th, .scrollable-table td {
+    .scrollable-table th,
+    .scrollable-table td {
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;

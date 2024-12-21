@@ -1,5 +1,5 @@
 @extends('owner.layouts.app')
-
+@section('title', 'Trang quản trị')
 @section('content')
     <div class="container">
         <h2>Thêm mới nhân viên</h2>

@@ -1,7 +1,7 @@
-<footer class="main-footer">
+<footer class="main-footer" style="text-align: center">
     <strong>Copyright &copy;
         <script>
             document.write(new Date().getFullYear())
-        </script> - Designed by Seaside team
+        </script>
     </strong>
 </footer>

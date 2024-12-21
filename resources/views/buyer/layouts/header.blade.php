@@ -39,6 +39,8 @@
         }
 
         .search-bar input {
+            margin-top: 20px;
+            width: 400px;
             flex: 1;
             padding: 10px 12px;
             border: 1px solid #ccc;
@@ -48,6 +50,7 @@
         }
 
         .search-bar button {
+            margin-top: 20px;
             padding: 10px 20px;
             border: none;
             background-color: #7bc548;
@@ -55,6 +58,11 @@
             border-radius: 0 8px 8px 0;
             /* Bo góc nhẹ */
             cursor: pointer;
+        }
+
+        .search-bar form {
+            display: flex;
+            align-items: center;
         }
 
         .search-bar button:hover {
@@ -82,7 +90,6 @@
             top: -8px;
             right: -12px;
             background-color: red;
-            color: white;
             border-radius: 50%;
             font-size: 18px;
             padding: 2px 6px;
@@ -98,17 +105,21 @@
 <body>
     <header class="header">
         <div class="logo">
-            <a href="{{ route('home.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="img-fluid"></a>     
+            <a href="{{ route('home.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo"
+                    class="img-fluid"></a>
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Tìm kiếm sản phẩm..." />
-            <button><i class="fas fa-search"></i></button>
-        </div>
+        <form method="GET" action="{{ route('buyer.search') }}">
+            <div class="search-bar">
+                <input type="text" name="search" placeholder="Tìm kiếm sản phẩm..."
+                    value="{{ request()->input('search') }}" />
+                <button id="search-button" type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
         <div class="icons">
             <div class="cart">
                 <a href="{{ route('cart.index') }}" class="text-decoration-none position-relative">
                     <i class="fas fa-cart-plus fs-3 text-dark"></i>
-                    <span class="badge bg-danger position-absolute top-0 start-100 translate-middle" style="color:#ff0000 ">
+                    <span class="badge position-absolute ">
                         @if (auth()->check())
                             {{ \App\Models\TbGioHang::where('taiKhoan', auth()->user()->taiKhoan)->sum('soLuong') }}
                         @else
@@ -116,7 +127,7 @@
                         @endif
                     </span>
                 </a>
-            </div>                                  
+            </div>
             <div class="user">
                 @if (session('username'))
                     @php
@@ -129,9 +140,10 @@
                             onclick="toggleDropdown()" data-bs-toggle="dropdown">
                             {{ $buyerProfile->taiKhoan }}
                         </a>
-                    
+
                         <div id="userDropdown" class="dropdown-menu">
-                            <a href="{{ url('/profile') }}" class="dropdown-item"><i class="fa-solid fa-user"></i> Thông tin cá nhân</a>
+                            <a href="{{ url('/profile') }}" class="dropdown-item"><i class="fa-solid fa-user"></i> Thông
+                                tin cá nhân</a>
                             <a href="#" class="dropdown-item"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
@@ -141,7 +153,6 @@
                             </form>
                         </div>
                     </div>
-                    
                 @else
                     <a href="{{ route('login') }}">
                         <i class="fas fa-user-circle"></i>

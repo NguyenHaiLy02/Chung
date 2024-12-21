@@ -14,6 +14,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route::get('/register', [RegisterController::class, 'showRegisterForm'])->name('register');
 // Route::post('/register', [RegisterController::class, 'register']);
+use App\Http\Controllers\Buyer\SearchController;
+
+Route::get('/search', [SearchController::class, 'search'])->name('buyer.search');
 
 
 use Illuminate\Support\Facades\Auth;
@@ -37,8 +40,8 @@ Route::get('/email/verify', function () {
 
 
 // Sản Phẩm
-use App\Http\Controllers\Buyer\SanPhamController;
-Route::get('/san-pham/{id}', [SanPhamController::class, 'show'])->name('buyer.sanpham.detail');
+use App\Http\Controllers\Buyer\ProductController;
+Route::get('/san-pham/{id}', [ProductController::class, 'show'])->name('buyer.sanpham.detail');
 
 
 use App\Http\Controllers\Buyer\OrderController;
@@ -47,7 +50,7 @@ Route::get('/order/create/{sanPhamId}', [OrderController::class, 'create'])->nam
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 Route::post('/order/fromCart', [OrderController::class, 'fromCart'])->name('order.fromCart');
 
-
+ 
 use App\Http\Controllers\Buyer\ProfileController;
 
     Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile');
@@ -92,6 +95,10 @@ use App\Http\Controllers\Owner\DashboardController;
 use App\Http\Controllers\Owner\CategoryController;
 use App\Http\Controllers\Owner\CustomerController;
 use App\Http\Controllers\Owner\EmployeeController;
+use App\Http\Controllers\Owner\ProductManagementController;
+use App\Http\Controllers\Owner\OwnerOrderController;
+use App\Http\Controllers\Owner\SupplierManagementController;
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
@@ -99,4 +106,12 @@ Route::prefix('owner')->name('owner.')->group(function () {
     Route::resource('category', CategoryController::class);
     Route::resource('customer_management', CustomerController::class);
     Route::resource('employee_management', EmployeeController::class);
-});
+    Route::resource('product', ProductManagementController::class);
+    Route::resource('supplier_management', SupplierManagementController::class);
+    Route::put('supplier_management/{id}/approve', [SupplierManagementController::class, 'approve'])
+        ->name('supplier_management.approve');
+}); 
+
+
+Route::get('/owner/orders', [OwnerOrderController::class, 'viewOrders'])->name('owner.orders');
+Route::get('/owner/orders/{maDonHang}', [OwnerOrderController::class, 'viewOrderDetail'])->name('owner.order.detail');

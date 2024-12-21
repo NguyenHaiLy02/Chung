@@ -3,14 +3,13 @@
 
 @section('content')
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
-    <div class="card shadow-lg" style="width: 450px;"> <!-- Tăng độ rộng trở lại -->
+    <div class="card shadow-lg" style="width: 450px;">
         <div class="card-body">
-            <h3 class="text-center mb-3" style="font-size: 24px;">Đăng Nhập</h3> <!-- Rút ngắn khoảng cách -->
+            <h3 class="text-center mb-3" style="font-size: 24px;">Đăng Nhập</h3> 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
-                <!-- Trường nhập tài khoản/email -->
-                <div class="form-group mb-2"> <!-- Rút ngắn khoảng cách -->
+                <div class="form-group mb-2">
                     <label for="login" class="form-label mb-1" style="font-size: 14px;">Tài khoản hoặc Email</label>
                     <input type="text" name="login" id="login" class="form-control custom-border" value="{{ old('login') }}" required>
                     @error('login')

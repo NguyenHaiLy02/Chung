@@ -54,13 +54,19 @@ class SupplierController extends Controller
         ]);
 
         // Insert vào bảng tbchungnhan (lưu nhiều hình ảnh)
+        // 
         if ($request->hasFile('hinhanh')) {
             foreach ($request->file('hinhanh') as $file) {
-                $path = $file->store('public/chungnhan');
-                // Lưu vào bảng tbchungnhan
+                // Lưu hình ảnh vào thư mục tạm thời
+                $tempPath = $file->store('private/temp');
+        
+                // Di chuyển tệp từ thư mục private sang public
+                $file->move(storage_path('app/public/chungnhan'), $file->getClientOriginalName());
+        
+                // Lưu vào database
                 TbChungNhan::create([
                     'maNCC' => $ncc->maNCC,
-                    'hinhanh' => $path, // Đảm bảo đường dẫn của hình ảnh được lưu vào bảng
+                    'hinhanh' => 'chungnhan/' . $file->getClientOriginalName(), // Đảm bảo đường dẫn đúng
                 ]);
             }
         }        

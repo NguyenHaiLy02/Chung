@@ -1,6 +1,7 @@
-@extends('buyer.profile.index')
-@section('title', 'Đơn Mua')
-@section('content1')
+@extends('owner.layouts.app')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+@section('content')
     <div class="orders-container">
         <h1>Danh Sách Đơn Mua</h1>
 
@@ -16,7 +17,7 @@
         <!-- Nội dung từng trạng thái -->
         @foreach ($groupedOrders as $status => $orders)
             <div class="tab-content" id="tab-{{ $status }}" style="display: none;">
-                {{-- <h2>{{ $status }}</h2> --}}
+                <h2>{{ $status }}</h2>
                 @if ($orders->isEmpty())
                     <p>Không có đơn hàng nào ở trạng thái này.</p>
                 @else
@@ -36,16 +37,30 @@
                                     <td>{{ $order->ngayDatHang }}</td>
                                     <td>{{ number_format($order->tongTien, 0, ',', '.') }} VND</td>
                                     <td>
-                                        <a href="{{ route('order.detail', $order->maDonHang) }}">Xem chi tiết</a>
+                                        <a href="{{ route('owner.order.detail', $order->maDonHang) }}">Xem chi tiết</a>
                                     </td>
-                                    @if ($order->trangThaiDonHang == 'Đã giao hàng')
+                                    @if ($order->trangThaiDonHang == 'Đang xử lý')
                                         <td>
-                                            <button class="btn-confirm" data-ma-don-hang="{{ $order->maDonHang }}" 
+                                            <button class="btn-confirm" data-ma-don-hang="{{ $order->maDonHang }}"
                                                 onclick="confirmOrder(this)">
-                                                Nhận hàng
+                                                Xác nhận đơn hàng
                                             </button>
                                         </td>
+                                    @else
+                                        @if ($order->trangThaiDonHang == 'Đang vận chuyển')
+                                            <td>
+                                                <button class="btn-confirm" data-ma-don-hang="{{ $order->maDonHang }}"
+                                                    onclick="confirmOrder2(this)">
+                                                    Xác nhận giao hàng
+                                                </button>
+                                            </td>
+                                        @else
+                                            <td>
+                                                {{ $order->trangThaiDonHang }}
+                                            </td>
+                                        @endif
                                     @endif
+
                                 </tr>
                             @endforeach
                         </tbody>
@@ -90,38 +105,68 @@
                 activeButton.classList.add('active');
             }
         }
+
         function confirmOrder(button) {
+            const maDonHang = button.getAttribute('data-ma-don-hang');
 
-        const maDonHang = button.getAttribute('data-ma-don-hang');
+            if (!maDonHang) return;
 
-        if (!maDonHang) return;
+            // Gửi yêu cầu cập nhật trạng thái
+            fetch(`/orders/confirm/${maDonHang}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        status: 'Đang vận chuyển'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Cập nhật trạng thái thành công!');
+                        location.reload(); // Tải lại trang sau khi cập nhật thành công
+                    } else {
+                        alert('Có lỗi xảy ra, vui lòng thử lại.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Không thể kết nối, vui lòng thử lại sau.');
+                });
+        }
 
-        // Gửi yêu cầu cập nhật trạng thái
-        fetch(`/orders/confirm/${maDonHang}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            },
-            body: JSON.stringify({ status: 'Đã nhận' })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Cập nhật trạng thái thành công!');
-                // Thay đổi trạng thái trực tiếp trên giao diện
-                button.disabled = true;
-                button.textContent = 'Đã nhận';
-            } else {
-                alert('Có lỗi xảy ra, vui lòng thử lại.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Không thể kết nối, vui lòng thử lại sau.');
-        });
-    }
+        function confirmOrder2(button) {
+            const maDonHang = button.getAttribute('data-ma-don-hang');
 
+            if (!maDonHang) return;
+
+            // Gửi yêu cầu cập nhật trạng thái
+            fetch(`/orders/confirm/${maDonHang}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify({
+                        status: 'Đã giao hàng'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Cập nhật trạng thái thành công!');
+                        location.reload(); // Tải lại trang sau khi cập nhật thành công
+                    } else {
+                        alert('Có lỗi xảy ra, vui lòng thử lại.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Không thể kết nối, vui lòng thử lại sau.');
+                });
+        }
     </script>
 
 

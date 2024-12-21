@@ -9,14 +9,14 @@
 
             <!-- Navigation Bar on the left -->
             <div class="nav-bar">
-                <a href="{{ url('/profile') }}" id="profile-link"
-                    class="{{ Request::is('profile') ? 'active-nav' : '' }}">Hồ Sơ</a>
+                <a href="{{ url('/profile') }}" id="profile-link" class="{{ Request::is('profile') ? 'active-nav' : '' }}">Hồ
+                    Sơ</a>
                 <a href="{{ url('/password') }}" id="password-link"
                     class="{{ Request::is('password') ? 'active-nav' : '' }}">Đổi Mật Khẩu</a>
-                <a href="{{ url('/view') }}" id="view-link"
-                    class="{{ Request::is('view') ? 'active-nav' : '' }}">Đơn mua</a>
+                <a href="{{ url('/view') }}" id="view-link" class="{{ Request::is('view') ? 'active-nav' : '' }}">Đơn
+                    mua</a>
             </div>
-            
+
 
             <!-- Content Section on the right -->
             <section class="content-section">
@@ -53,74 +53,61 @@
 @endsection
 <style>
     .container {
-        display: flex;
-        justify-content: space-between;
-    }
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Thêm khoảng cách phía trên */
+}
 
-    .nav-bar {
-        width: 25%;
-        /* Tạo độ rộng cho thanh menu bên trái */
-        padding-right: 30px;
-    }
+.nav-bar {
+    width: 25%;
+    padding-right: 30px;
+}
 
-    a {
-        display: block;
-        /* Đảm bảo mỗi thẻ a chiếm một dòng */
-        margin-bottom: 10px;
-        /* Thêm khoảng cách dưới mỗi liên kết */
-        padding: 10px;
-        /* Thêm padding để dễ nhìn hơn */
-        text-decoration: none;
-        /* Bỏ gạch dưới */
-        color: #000;
-        /* Màu chữ */
-        background-color: #f8f9fa;
-        /* Màu nền */
-        border: 1px solid #ddd;
-        /* Viền nhẹ xung quanh */
-        border-radius: 5px;
-        /* Bo tròn góc */
-        transition: background-color 0.3s ease;
-        /* Hiệu ứng chuyển màu nền khi hover */
-    }
+.nav-bar a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
-    a:hover {
-        background-color: #7bc548;
-        /* Màu nền khi hover */
-        color: white;
-        /* Màu chữ khi hover */
-    }
+.nav-bar a:hover {
+    background-color: #7bc548;
+    color: white;
+}
 
-    a.active-nav {
+.nav-bar a.active-nav {
     background-color: #7bc548;
     color: white;
     font-weight: bold;
-    /* Đậm chữ để nổi bật */
     border: 1px solid #7bc548;
-    /* Tăng độ tương phản */
 }
 
+.content-section {
+    width: 70%;
+    padding-left: 30px;
+}
+
+/* Các điều chỉnh khi màn hình nhỏ hơn */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        margin-top: 10px; /* Giảm khoảng cách cho màn hình nhỏ hơn */
+    }
+
+    .nav-bar {
+        width: 100%;
+        padding-right: 0;
+    }
+
     .content-section {
-        width: 70%;
-        /* Cung cấp không gian cho nội dung bên phải */
-        padding-left: 30px;
+        width: 100%;
+        padding-left: 0;
     }
+}
 
-    /* Các điều chỉnh khi màn hình nhỏ hơn */
-    @media (max-width: 768px) {
-        .container {
-            flex-direction: column;
-            /* Chuyển đổi từ bố trí ngang sang dọc */
-        }
-
-        .nav-bar {
-            width: 100%;
-            padding-right: 0;
-        }
-
-        .content-section {
-            width: 100%;
-            padding-left: 0;
-        }
-    }
 </style>

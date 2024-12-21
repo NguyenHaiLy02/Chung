@@ -1,6 +1,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #161b2c">
     <div class="logo">
-        <a href="{{ route('dashboard.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="img-fluid"></a>     
+        <a href="{{ route('dashboard.index') }}"><img src="{{ asset('images/logo.jpg') }}" alt="Logo"
+                class="img-fluid"></a>
     </div>
     <div class="sidebar">
 
@@ -39,7 +40,7 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
+                    <a href="{{ route('dashboard.index') }}" class="nav-link text-white">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -62,9 +63,9 @@
                 </li>            
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p> Quản lý nhà cung cấp </p>
+                    <a href="{{ route('owner.supplier_management.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fas fa-warehouse"></i>
+                        <p> Nhà cung cấp </p>
                     </a>
                 </li>
 
@@ -75,15 +76,20 @@
                     </a>
                 </li>
 
+               
+
+
+                
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
-                        <i class="nav-icon fas fa-warehouse"></i>
+                    <a href="{{ route('owner.product.index') }}" class="nav-link text-white">
+                        <i class="nav-icon fas fa-tag"></i>
                         <p> Sản phẩm </p>
                     </a>
                 </li>
-
+                
                 <li class="nav-item">
-                    <a href="" class="nav-link text-white">
+                    <a href="{{ route('owner.orders')}}" class="nav-link text-white">
                         <i class="nav-icon fas fa-receipt"></i>
                         <p> Quản lý đơn hàng </p>
                     </a>

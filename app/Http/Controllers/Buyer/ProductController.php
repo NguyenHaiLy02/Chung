@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\TbSanPham;
 use Illuminate\Http\Request;
 
-class SanPhamController extends Controller
+class ProductController extends Controller
 {
     public function show($id)
     {
@@ -15,4 +15,5 @@ class SanPhamController extends Controller
         // Trả về view với thông tin sản phẩm và đánh giá
         return view('buyer.product.index', compact('sanPham'));
     }
+   
 }
