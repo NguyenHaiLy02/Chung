@@ -17,7 +17,7 @@ class DashboardController extends Controller
     $totalCategories = DB::table('TbDanhMuc')->count();      // Tổng số danh mục
 
     // Xử lý dữ liệu biểu đồ doanh thu
-    $timeRange = $request->input('timeRange', 'all'); // Mặc định là 7 ngày
+    $timeRange = $request->input('timeRange', 'all'); 
 
     $query = DB::table('TbDonHang')
         ->select(DB::raw('DATE(ngayDatHang) as date'), DB::raw('SUM(tongTien) as revenue'))

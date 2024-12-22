@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Models\TbTaiKhoan; 
 use App\Models\TbGioHang;
-use App\Models\TbSanPham; // Thêm dòng này
+use App\Models\TbSanPham;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -32,7 +32,7 @@ class OrderController extends Controller
          
     }
 
-    // Phương thức lưu đơn hàng
+    //  
     public function store(Request $request)
     {
         // Kiểm tra phương thức thanh toán là "cod"
@@ -68,8 +68,8 @@ class OrderController extends Controller
                 'order' => $donHang,
                 'orderDetails' => TbChiTietDonHang::where('maDonHang', $donHang->maDonHang)->get()
             ]);
-        } else {
-            // Logic cho các phương thức thanh toán khác (ví dụ: NVPay) có thể ở đây
+        } else if ($request->paymentMethod == 'vnpay') {
+            return $this->vnpayPayment($request); // Chuyển hướng đến VNPay
         }
 
         // Trả về nếu có lỗi khi đặt hàng
@@ -127,15 +127,15 @@ class OrderController extends Controller
                 'order' => $donHang,
                 'orderDetails' => TbChiTietDonHang::where('maDonHang', $donHang->maDonHang)->get()
             ]);
-        } else {
-            // Logic cho các phương thức thanh toán khác (ví dụ: NVPay) có thể ở đây
+        } else if ($request->paymentMethod == 'vnpay') {
+            return $this->vnpayPayment($request); // Chuyển hướng đến VNPay
         }
     
         // Trả về nếu có lỗi khi đặt hàng
         return back()->with('error', 'Lỗi khi đặt hàng!');
     }
     
-    public function confirmAll($orderId)
+    public function confirmAll($orderId) 
     {
         // Tìm đơn hàng theo 'maDonHang'
         $order = TbDonHang::where('maDonHang', $orderId)->first();
@@ -163,4 +163,90 @@ class OrderController extends Controller
     
         return response()->json(['success' => true, 'message' => 'Trạng thái đã được cập nhật']);
     }
+    public function vnpayPayment(Request $request)
+    {
+        $vnp_TmnCode = env('VNPAY_TMN_CODE'); // Mã website lấy từ .env
+        $vnp_HashSecret = env('VNPAY_HASH_SECRET'); // Chuỗi bí mật lấy từ .env
+        $vnp_Url = env('VNPAY_URL');
+        $vnp_Returnurl = env('VNPAY_RETURN_URL'); // URL sau khi thanh toán xong
+
+        // Thông tin đơn hàng
+        $vnp_TxnRef = uniqid(); // Mã giao dịch duy nhất (có thể là số thứ tự đơn hàng)
+        $vnp_OrderInfo = 'Thanh toán đơn hàng'; // Mô tả đơn hàng
+        $vnp_OrderType = 'billpayment';
+        $vnp_Amount = $request->totalPrice * 100; // VNPay yêu cầu đơn vị là VNĐ * 100 (VND)
+        $vnp_Locale = 'vn'; // Đặt ngôn ngữ là tiếng Việt
+        $vnp_BankCode = $request->bankCode; // Mã ngân hàng, có thể để trống
+        $vnp_IpAddr = $request->ip(); // Địa chỉ IP của người dùng
+
+        $inputData = [
+            'vnp_Version' => '2.1.0',
+            'vnp_TmnCode' => $vnp_TmnCode,
+            'vnp_Amount' => $vnp_Amount,
+            'vnp_Command' => 'pay',
+            'vnp_CreateDate' => now()->format('YmdHis'),
+            'vnp_CurrCode' => 'VND',
+            'vnp_IpAddr' => $vnp_IpAddr,
+            'vnp_Locale' => $vnp_Locale,
+            'vnp_OrderInfo' => $vnp_OrderInfo,
+            'vnp_OrderType' => $vnp_OrderType,
+            'vnp_ReturnUrl' => $vnp_Returnurl,
+            'vnp_TxnRef' => $vnp_TxnRef,
+        ];
+
+        if (!empty($vnp_BankCode)) {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+
+        // Tạo URL thanh toán VNPay
+        ksort($inputData);  // Sắp xếp mảng theo key
+        $query = http_build_query($inputData);  // Tạo query string
+        $hashData = urldecode($query);  // Đảm bảo không có ký tự đặc biệt
+        $vnp_Url .= '?' . $query;  // Tạo đường dẫn URL
+
+        // Tạo chữ ký bảo mật
+        if (!empty($vnp_HashSecret)) {
+            $vnpSecureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+            $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;  // Thêm chữ ký vào URL
+        }
+
+        // Chuyển hướng đến VNPay
+        return redirect($vnp_Url);
+    }
+
+
+    public function vnpayReturn(Request $request)
+    {
+        $inputData = $request->all();
+        $vnp_HashSecret = env('VNPAY_HASH_SECRET'); // Lấy chuỗi bí mật từ .env
+
+        // Kiểm tra tính hợp lệ của chữ ký
+        $vnp_SecureHash = $inputData['vnp_SecureHash'];
+        unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
+
+        ksort($inputData);
+        $hashData = urldecode(http_build_query($inputData));
+        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
+
+        if ($secureHash === $vnp_SecureHash) {
+            // Kiểm tra mã giao dịch trả về
+            if ($inputData['vnp_ResponseCode'] == '00') {
+                // Thanh toán thành công, xử lý đơn hàng
+                $donHang = TbDonHang::create([
+                    'taiKhoan' => Session::get('username'),
+                    'ngayDatHang' => now(),
+                    'tongTien' => $inputData['vnp_Amount'] / 100,
+                    'trangThaiDonHang' => 'Đang xử lý',
+                    'trangThaiThanhToan' => 'Đã thanh toán',
+                    'maGiaoDich' => $inputData['vnp_TransactionNo'],
+                ]);
+
+                return view('buyer.order.orderSuccess', ['order' => $donHang]);
+            } else {
+                return redirect()->route('home')->with('error', 'Thanh toán không thành công!');
+            }
+        } else {
+            return redirect()->route('home')->with('error', 'Chữ ký không hợp lệ!');
+        }
+    }    
 }

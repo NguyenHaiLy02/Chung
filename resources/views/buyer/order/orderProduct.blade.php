@@ -70,7 +70,6 @@
                     Đặt hàng
                 </button>
             </form>
-
         </div>
     </div>
 @endsection
