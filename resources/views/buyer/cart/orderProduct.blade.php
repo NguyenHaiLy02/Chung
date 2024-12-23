@@ -25,16 +25,25 @@
                                     <img src="{{ asset('storage/images/no-image.png') }}" alt="No Image Available"
                                         style="max-width: 150px;" />
                                 @endif
-
                             </td>
                             <td>{{ $order['tenSanPham'] }}</td>
-                            <td>{{ $order['moTa'] ?? 'Không có mô tả' }}</td> <!-- Thêm mô tả nếu có -->
+                            <td>{{ $order['moTa'] ?? 'Không có mô tả' }}</td>
                             <td>{{ number_format($order['totalPrice'] / $order['quantity'], 2) }} VND</td>
                             <td>{{ $order['quantity'] }}</td>
-                            <td>{{ number_format($order['totalPrice'], 2) }} VND</td> <!-- Calculate total price -->
+                            <td>{{ number_format($order['totalPrice'], 2) }} VND</td>
                         </tr>
                     @endforeach
                 </tbody>
+
+                <!-- Tổng tiền của toàn bộ đơn hàng -->
+                <tfoot>
+                    <tr>
+                        <td colspan="5" style="text-align: right; font-weight: bold;">Tổng tiền:</td>
+                        <td style="font-weight: bold;">{{ number_format(collect($orderDetails)->sum('totalPrice'), 2) }} VND
+                        </td>
+                    </tr>
+                </tfoot>
+
             </table>
 
             <!-- Payment Section -->
@@ -137,4 +146,10 @@
     .btn.btn-buy:hover {
         background-color: #218838;
     }
+
+    tfoot td {
+    background-color: #f4f4f4;
+    font-size: 16px;
+}
+
 </style>

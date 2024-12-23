@@ -14,6 +14,7 @@ class OwnerOrderController extends Controller
             'Tất cả đơn hàng',
             'Chờ xử lý',
             'Chờ vận chuyển',
+            'Đang vận chuyển',
             'Hoàn thành',
             'Đã hủy'
         ];
@@ -25,8 +26,9 @@ class OwnerOrderController extends Controller
 
         $groupedOrders = [
             'Tất cả đơn hàng' => $allOrders,
-            'Chờ xử lý' => $allOrders->where('trangThaiDonHang', 'Đang xử lý'),
-            'Chờ vận chuyển' => $allOrders->where('trangThaiDonHang', 'Đang vận chuyển'),
+            'Chờ xử lý' => $allOrders->whereIn('trangThaiDonHang', ['Đã duyệt','Đang xử lý','Chuẩn bị hàng']),
+            'Chờ vận chuyển' => $allOrders->where('trangThaiDonHang','Chờ vận chuyển' ),
+            'Đang vận chuyển' => $allOrders->where('trangThaiDonHang', 'Đang vận chuyển'),
             'Hoàn thành' => $allOrders->whereIn('trangThaiDonHang', ['Đã giao hàng', 'Đã nhận', 'Đã đánh giá']),
             'Đã hủy' => $allOrders->where('trangThaiDonHang', 'Đã hủy'),
         ];

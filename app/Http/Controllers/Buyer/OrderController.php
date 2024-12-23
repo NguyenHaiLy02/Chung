@@ -68,8 +68,83 @@ class OrderController extends Controller
                 'order' => $donHang,
                 'orderDetails' => TbChiTietDonHang::where('maDonHang', $donHang->maDonHang)->get()
             ]);
-        } else if ($request->paymentMethod == 'vnpay') {
-            return $this->vnpayPayment($request); // Chuyển hướng đến VNPay
+        } else {
+                
+            $latestOrderId = TbDonHang::max('maDonHang');
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            // thay cổng theo server máy đang chạy http://localhost:8000 
+            $vnp_Returnurl = "http://127.0.0.1:8000/vnpay-return?" . http_build_query([
+                'tongTien' => $request->totalPrice,
+                'diaChiGiaoHang' => $request->address, // Địa chỉ giao hàng
+                'sdt' => $request->phone, // Số điện thoại
+                'maSanPham' => $request->sanPhamId,
+                'soLuong' => $request->quantity,
+            ]);
+
+            $vnp_TmnCode = "CGXZLS0Z";
+            $vnp_HashSecret = "XNBCJFAKAZQSGTARRLGCHVZWCIOIGSHN";
+
+            $vnp_TxnRef = $latestOrderId+1;
+            $vnp_OrderInfo = 'Thanh toan hoa don';
+            $vnp_OrderType = 'xtmn';
+            $vnp_Amount =  $request->totalPrice*100;
+            $vnp_Locale = 'VN';
+            $vnp_BankCode = 'NCB';
+            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+
+            $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef
+            );
+
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+            }
+
+            //var_dump($inputData);
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashdata .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+            }
+            $returnData = array(
+                'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+            );
+            if (isset($_POST['redirect'])) {
+                header('Location: ' . $vnp_Url);
+                die();
+            } else {
+                echo json_encode($returnData);
+            }
+            // Chuyển hướng đến VNPay
+            return redirect($vnp_Url);
         }
 
         // Trả về nếu có lỗi khi đặt hàng
@@ -127,8 +202,97 @@ class OrderController extends Controller
                 'order' => $donHang,
                 'orderDetails' => TbChiTietDonHang::where('maDonHang', $donHang->maDonHang)->get()
             ]);
-        } else if ($request->paymentMethod == 'vnpay') {
-            return $this->vnpayPayment($request); // Chuyển hướng đến VNPay
+        } else  {
+            // Chuyển hướng đến VNPay
+            $latestOrderId = TbDonHang::max('maDonHang') ?? 0;
+            $totalPrice = 0;
+
+            // Tính tổng tiền
+            foreach ($request->orderDetails as $orderDetail) {
+                $totalPrice += $orderDetail['totalPrice'];
+            }
+
+            // Chuẩn bị danh sách sản phẩm
+            $orderDetails = array_map(function ($orderDetail) {
+                return [
+                    'maSanPham' => $orderDetail['sanPhamId'],
+                    'soLuong' => $orderDetail['quantity']
+                ];
+            }, $request->orderDetails);
+
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_Returnurl = url('vnpay-returns') . '?' . http_build_query([
+                'tongTien' => $totalPrice,
+                'diaChiGiaoHang' => $request->address,
+                'sdt' => $request->phone,
+                'chiTietDonHang' => json_encode($orderDetails)
+            ]);
+
+            $vnp_TmnCode = "CGXZLS0Z";
+            $vnp_HashSecret = "XNBCJFAKAZQSGTARRLGCHVZWCIOIGSHN";
+
+            $vnp_TxnRef = $latestOrderId+1;
+            $vnp_OrderInfo = 'Thanh toan hoa don';
+            $vnp_OrderType = 'xtmn';
+            $vnp_Amount =  $totalPrice*100;
+            $vnp_Locale = 'VN';
+            $vnp_BankCode = 'NCB';
+            $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
+
+            $inputData = array(
+            "vnp_Version" => "2.1.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => $vnp_Returnurl,
+            "vnp_TxnRef" => $vnp_TxnRef
+            );
+
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
+                $inputData['vnp_Bill_State'] = $vnp_Bill_State;
+            }
+
+            //var_dump($inputData);
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . urlencode($key) . "=" . urlencode($value);
+                } else {
+                    $hashdata .= urlencode($key) . "=" . urlencode($value);
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //  
+                $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
+            }
+            $returnData = array(
+                'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+            );
+            if (isset($_POST['redirect'])) {
+                header('Location: ' . $vnp_Url);
+                die();
+            } else {
+                echo json_encode($returnData);
+            }
+            // Chuyển hướng đến VNPay
+            return redirect($vnp_Url);
+
         }
     
         // Trả về nếu có lỗi khi đặt hàng
@@ -165,88 +329,106 @@ class OrderController extends Controller
     }
     public function vnpayPayment(Request $request)
     {
-        $vnp_TmnCode = env('VNPAY_TMN_CODE'); // Mã website lấy từ .env
-        $vnp_HashSecret = env('VNPAY_HASH_SECRET'); // Chuỗi bí mật lấy từ .env
-        $vnp_Url = env('VNPAY_URL');
-        $vnp_Returnurl = env('VNPAY_RETURN_URL'); // URL sau khi thanh toán xong
 
-        // Thông tin đơn hàng
-        $vnp_TxnRef = uniqid(); // Mã giao dịch duy nhất (có thể là số thứ tự đơn hàng)
-        $vnp_OrderInfo = 'Thanh toán đơn hàng'; // Mô tả đơn hàng
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->totalPrice * 100; // VNPay yêu cầu đơn vị là VNĐ * 100 (VND)
-        $vnp_Locale = 'vn'; // Đặt ngôn ngữ là tiếng Việt
-        $vnp_BankCode = $request->bankCode; // Mã ngân hàng, có thể để trống
-        $vnp_IpAddr = $request->ip(); // Địa chỉ IP của người dùng
-
-        $inputData = [
-            'vnp_Version' => '2.1.0',
-            'vnp_TmnCode' => $vnp_TmnCode,
-            'vnp_Amount' => $vnp_Amount,
-            'vnp_Command' => 'pay',
-            'vnp_CreateDate' => now()->format('YmdHis'),
-            'vnp_CurrCode' => 'VND',
-            'vnp_IpAddr' => $vnp_IpAddr,
-            'vnp_Locale' => $vnp_Locale,
-            'vnp_OrderInfo' => $vnp_OrderInfo,
-            'vnp_OrderType' => $vnp_OrderType,
-            'vnp_ReturnUrl' => $vnp_Returnurl,
-            'vnp_TxnRef' => $vnp_TxnRef,
-        ];
-
-        if (!empty($vnp_BankCode)) {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-
-        // Tạo URL thanh toán VNPay
-        ksort($inputData);  // Sắp xếp mảng theo key
-        $query = http_build_query($inputData);  // Tạo query string
-        $hashData = urldecode($query);  // Đảm bảo không có ký tự đặc biệt
-        $vnp_Url .= '?' . $query;  // Tạo đường dẫn URL
-
-        // Tạo chữ ký bảo mật
-        if (!empty($vnp_HashSecret)) {
-            $vnpSecureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
-            $vnp_Url .= '&vnp_SecureHash=' . $vnpSecureHash;  // Thêm chữ ký vào URL
-        }
-
-        // Chuyển hướng đến VNPay
-        return redirect($vnp_Url);
     }
-
 
     public function vnpayReturn(Request $request)
     {
-        $inputData = $request->all();
-        $vnp_HashSecret = env('VNPAY_HASH_SECRET'); // Lấy chuỗi bí mật từ .env
+        // Lấy các tham số trả về từ VNPAY
+        $vnp_ResponseCode = isset($_GET['vnp_ResponseCode']) ? $_GET['vnp_ResponseCode'] : '';
 
-        // Kiểm tra tính hợp lệ của chữ ký
-        $vnp_SecureHash = $inputData['vnp_SecureHash'];
-        unset($inputData['vnp_SecureHash'], $inputData['vnp_SecureHashType']);
-
-        ksort($inputData);
-        $hashData = urldecode(http_build_query($inputData));
-        $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
-
-        if ($secureHash === $vnp_SecureHash) {
-            // Kiểm tra mã giao dịch trả về
-            if ($inputData['vnp_ResponseCode'] == '00') {
-                // Thanh toán thành công, xử lý đơn hàng
-                $donHang = TbDonHang::create([
-                    'taiKhoan' => Session::get('username'),
-                    'ngayDatHang' => now(),
-                    'tongTien' => $inputData['vnp_Amount'] / 100,
-                    'trangThaiDonHang' => 'Đang xử lý',
-                    'trangThaiThanhToan' => 'Đã thanh toán',
-                    'maGiaoDich' => $inputData['vnp_TransactionNo'],
-                ]);
-
-                return view('buyer.order.orderSuccess', ['order' => $donHang]);
-            } else {
-                return redirect()->route('home')->with('error', 'Thanh toán không thành công!');
-            }
+        // Kiểm tra xem thanh toán có bị hủy hay không
+        if ($vnp_ResponseCode === '24') {
+            // Thực hiện các xử lý khi thanh toán bị hủy
+            echo "Thanh toán bị hủy. Xử lý tại đây.";
+            return redirect()->route('home');
         } else {
-            return redirect()->route('home')->with('error', 'Chữ ký không hợp lệ!');
+            // Thanh toán thành công, xử lý đơn hàng
+            $donHang = TbDonHang::create([
+                'taiKhoan' => Session::get('username'), // Giả sử username được lưu trong session
+                'ngayDatHang' => now(),
+                'tongTien' => $request->input('tongTien'), // Tổng tiền của đơn hàng
+                'trangThaiDonHang' => 'Đã duyệt', // Cập nhật theo logic của bạn
+                'diaChiGiaoHang' => $request->input('diaChiGiaoHang'), // Địa chỉ giao hàng
+                'sdt' => $request->input('sdt'), // Số điện thoại
+                'trangThaiThanhToan' => 'Đã thanh toán', // Trạng thái thanh toán
+            ]);
+
+            // Lưu chi tiết đơn hàng cho từng sản phẩm trong giỏ hàng
+            TbChiTietDonHang::create([
+                'maDonHang' => $donHang->maDonHang,
+                'maSanPham' => $request->input('maSanPham'),
+                'soLuong' => $request->input('soLuong'),
+                'donGia' => $request->input('tongTien') /$request->input('soLuong'),
+            ]);
+
+            // Giảm số lượng tồn kho của sản phẩm
+            $sanPham = TbSanPham::find($request->input('maSanPham'));
+            if ($sanPham) {
+                $sanPham->soLuongTonKho -= $request->input('soLuong'); // Giảm số lượng tồn kho
+                $sanPham->save(); // Lưu thay đổi vào cơ sở dữ liệu
+            }
+
+            return view('buyer.order.orderSuccess', [
+                'order' => $donHang,
+                'orderDetails' => TbChiTietDonHang::where('maDonHang', $donHang->maDonHang)->get()
+            ]);
         }
+        
     }    
+    public function vnpayReturns(Request $request)
+    {
+        // Lấy các tham số trả về từ VNPAY
+        $vnp_ResponseCode = $request->input('vnp_ResponseCode', '');
+
+        // Kiểm tra xem thanh toán có bị hủy hay không
+        if ($vnp_ResponseCode === '24') {
+            // Thực hiện các xử lý khi thanh toán bị hủy
+            echo "Thanh toán bị hủy. Xử lý tại đây.";
+            return redirect()->route('home');
+        }
+
+        // Thanh toán thành công, xử lý đơn hàng
+        $donHang = TbDonHang::create([
+            'taiKhoan' => Session::get('username'), // Giả sử username được lưu trong session
+            'ngayDatHang' => now(),
+            'tongTien' => $request->input('tongTien'), // Tổng tiền của đơn hàng
+            'trangThaiDonHang' => 'Đã duyệt', // Cập nhật theo logic của bạn
+            'diaChiGiaoHang' => $request->input('diaChiGiaoHang'), // Địa chỉ giao hàng
+            'sdt' => $request->input('sdt'), // Số điện thoại
+            'trangThaiThanhToan' => 'Đã thanh toán', // Trạng thái thanh toán
+        ]);
+
+        // Lưu chi tiết đơn hàng cho từng sản phẩm
+        $orderDetails = json_decode($request->input('chiTietDonHang'), true);
+        foreach ($orderDetails as $detail) {
+
+        $maSP = TbSanPham::find($detail['maSanPham']);
+            TbChiTietDonHang::create([
+                'maDonHang' => $donHang->maDonHang,
+                'maSanPham' => $detail['maSanPham'],
+                'soLuong' => $detail['soLuong'],
+                'donGia' => $maSP->giaTien,
+            ]);
+
+            // Giảm số lượng tồn kho của sản phẩm
+            $sanPham = TbSanPham::find($detail['maSanPham']);
+            if ($sanPham) {
+                $sanPham->soLuongTonKho -= $detail['soLuong']; // Giảm số lượng tồn kho
+                $sanPham->save(); // Lưu thay đổi vào cơ sở dữ liệu
+            }
+        }
+        // Xóa các sản phẩm đã được đặt trong giỏ hàng
+        foreach ($orderDetails as $detailDelete) {
+            TbGioHang::where('taiKhoan', Session::get('username'))
+                ->where('maSanPham', $detailDelete['maSanPham'])
+                ->delete(); // Xóa sản phẩm khỏi giỏ hàng của người dùng
+        }
+        // Trả về view thông báo thành công
+        return view('buyer.order.orderSuccess', [
+            'order' => $donHang,
+            'orderDetails' => TbChiTietDonHang::where('maDonHang', $donHang->maDonHang)->get()
+        ]);
+    }
+
 }

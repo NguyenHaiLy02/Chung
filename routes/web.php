@@ -51,7 +51,8 @@ Route::post('/order/store', [OrderController::class, 'store'])->name('order.stor
 Route::post('/order/fromCart', [OrderController::class, 'fromCart'])->name('order.fromCart');
 
 Route::post('/vnpay/payment', [OrderController::class, 'vnpayPayment'])->name('vnpay.payment');
-Route::get('/vnpay/return', [OrderController::class, 'vnpayReturn'])->name('vnpay.return');
+Route::get('/vnpay-return', [OrderController::class, 'vnpayReturn'])->name('vnpay.return');
+Route::get('/vnpay-returns', [OrderController::class, 'vnpayReturns'])->name('vnpay.returns');
 
  
 use App\Http\Controllers\Buyer\ProfileController;

@@ -96,7 +96,7 @@ class ProfileController extends Controller
 
         $groupedOrders = [
             'Tất cả đơn hàng' => $allOrders,
-            'Đang xử lý' => $allOrders->where('trangThaiDonHang', 'Đang xử lý'),
+            'Đang xử lý' => $allOrders->whereIn('trangThaiDonHang',['Đang xử lý','Đã duyệt','Chuẩn bị hàng','Chờ vận chuyển'] ),
             'Đang vận chuyển' => $allOrders->where('trangThaiDonHang', 'Đang vận chuyển'),
             'Hoàn thành' => $allOrders->whereIn('trangThaiDonHang', ['Đã giao hàng', 'Đã nhận', 'Đã đánh giá']),
             'Đã hủy' => $allOrders->where('trangThaiDonHang', 'Đã hủy'),

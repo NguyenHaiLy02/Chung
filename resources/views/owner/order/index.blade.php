@@ -39,30 +39,60 @@
                                     <td>
                                         <a href="{{ route('owner.order.detail', $order->maDonHang) }}">Xem chi tiết</a>
                                     </td>
-                                    @if ($order->trangThaiDonHang == 'Đang xử lý')
-                                        <td>
-                                            <button class="btn-confirm" data-ma-don-hang="{{ $order->maDonHang }}"
-                                                onclick="confirmOrder(this)">
-                                                Xác nhận đơn hàng
-                                            </button>
-                                        </td>
-                                    @else
-                                        @if ($order->trangThaiDonHang == 'Đang vận chuyển')
-                                            <td>
-                                                <button class="btn-confirm" data-ma-don-hang="{{ $order->maDonHang }}"
-                                                    onclick="confirmOrder2(this)">
-                                                    Xác nhận giao hàng
-                                                </button>
-                                            </td>
-                                        @else
-                                            <td>
-                                                {{ $order->trangThaiDonHang }}
-                                            </td>
-                                        @endif
-                                    @endif
+                                    <td>
+                                        @php
+                                            $user = \App\Models\TbTaiKhoan::where(
+                                                'taiKhoan',
+                                                session('username'),
+                                            )->first();
+                                            $quyen = $user->quyen;
 
+                                            // Khởi tạo mảng hành động rỗng
+                                            $actions = [];
+
+                                            // Kiểm tra quyền của người dùng và thêm hành động vào mảng
+                                            if ($quyen == 'nhanvien' || $quyen == 'chucuahang') {
+                                                $actions = [
+                                                    'Đang xử lý' => [
+                                                        'onclick' => 'confirmOrder(this)',
+                                                        'label' => 'Xác nhận đơn hàng',
+                                                    ],
+                                                    'Đã duyệt' => [
+                                                        'onclick' => 'confirmOrder3(this)',
+                                                        'label' => 'Chuẩn bị hàng',
+                                                    ],
+                                                    'Chuẩn bị hàng' => [
+                                                        'onclick' => 'confirmOrder5(this)',
+                                                        'label' => 'Giao cho đơn vị vận chuyển',
+                                                    ],
+                                                ];
+                                            } else {
+                                                $actions = [
+                                                    'Chờ vận chuyển' => [
+                                                        'onclick' => 'confirmOrder4(this)',
+                                                        'label' => 'Nhận giao hàng',
+                                                    ],
+                                                    'Đang vận chuyển' => [
+                                                        'onclick' => 'confirmOrder2(this)',
+                                                        'label' => 'Xác nhận giao hàng',
+                                                    ],
+                                                ];
+                                            }
+                                        @endphp
+
+
+                                        @if (isset($actions[$order->trangThaiDonHang]))
+                                            <button class="btn-confirm" data-ma-don-hang="{{ $order->maDonHang }}"
+                                                onclick="{{ $actions[$order->trangThaiDonHang]['onclick'] }}">
+                                                {{ $actions[$order->trangThaiDonHang]['label'] }}
+                                            </button>
+                                        @else
+                                            {{ $order->trangThaiDonHang }}
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
+
                         </tbody>
                     </table>
                 @endif
@@ -81,37 +111,20 @@
 
         // Hàm chuyển đổi giữa các tab
         function showTab(status) {
-            // Ẩn tất cả nội dung
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {
-                content.style.display = 'none';
-            });
-
-            // Hiển thị nội dung của tab được chọn
+            document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
             const activeContent = document.getElementById('tab-' + status);
-            if (activeContent) {
-                activeContent.style.display = 'block';
-            }
+            if (activeContent) activeContent.style.display = 'block';
 
-            // Xóa trạng thái "active" khỏi tất cả nút
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => {
-                button.classList.remove('active');
-            });
-
-            // Thêm trạng thái "active" cho nút được chọn
+            document.querySelectorAll('.tab-button').forEach(button => button.classList.remove('active'));
             const activeButton = document.querySelector(`.tab-button[onclick="showTab('${status}')"]`);
-            if (activeButton) {
-                activeButton.classList.add('active');
-            }
+            if (activeButton) activeButton.classList.add('active');
         }
 
-        function confirmOrder(button) {
+        // Hàm xử lý cập nhật trạng thái chung
+        function updateOrderStatus(button, newStatus) {
             const maDonHang = button.getAttribute('data-ma-don-hang');
-
             if (!maDonHang) return;
 
-            // Gửi yêu cầu cập nhật trạng thái
             fetch(`/orders/confirm/${maDonHang}`, {
                     method: 'POST',
                     headers: {
@@ -119,7 +132,7 @@
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                     },
                     body: JSON.stringify({
-                        status: 'Đang vận chuyển'
+                        status: newStatus
                     })
                 })
                 .then(response => response.json())
@@ -135,37 +148,27 @@
                     console.error('Error:', error);
                     alert('Không thể kết nối, vui lòng thử lại sau.');
                 });
+        }
+
+        // Các hàm gọi hàm chung với trạng thái tương ứng
+        function confirmOrder(button) {
+            updateOrderStatus(button, 'Đã duyệt');
         }
 
         function confirmOrder2(button) {
-            const maDonHang = button.getAttribute('data-ma-don-hang');
+            updateOrderStatus(button, 'Đã giao hàng');
+        }
 
-            if (!maDonHang) return;
+        function confirmOrder3(button) {
+            updateOrderStatus(button, 'Chuẩn bị hàng');
+        }
 
-            // Gửi yêu cầu cập nhật trạng thái
-            fetch(`/orders/confirm/${maDonHang}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                    },
-                    body: JSON.stringify({
-                        status: 'Đã giao hàng'
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Cập nhật trạng thái thành công!');
-                        location.reload(); // Tải lại trang sau khi cập nhật thành công
-                    } else {
-                        alert('Có lỗi xảy ra, vui lòng thử lại.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Không thể kết nối, vui lòng thử lại sau.');
-                });
+        function confirmOrder4(button) {
+            updateOrderStatus(button, 'Đang vận chuyển');
+        }
+
+        function confirmOrder5(button) {
+            updateOrderStatus(button, 'Chờ vận chuyển');
         }
     </script>
 
