@@ -14,10 +14,14 @@ class TbTinDangSanPham extends Model
 
     public function nhaCungCap()
     {
-        return $this->belongsTo(TbNhaCungCap::class, 'maNCC');
+        return $this->belongsTo(TbNhaCungCap::class, 'maNCC','maNCC');
     }
     public function hinhanhtindang()
     {
         return $this->hasMany(TbHinhAnhTinDang::class, 'maTin', 'maTin');
+    }
+    public function chiTietYeuCauNhapHang()
+    {
+        return $this->belongsTo(TbChiTietYeuCauNhapHang::class, 'maTin', 'maTin');
     }
 }

@@ -17,4 +17,8 @@ class TbNhanVien extends Model
     {
         return $this->belongsTo(TbTaiKhoan::class, 'taiKhoan', 'taiKhoan');
     }
+    public function nhanVien()
+    {
+        return $this->belongsTo(TbNhanVien::class, 'maNhanVien', 'maNhanVien');
+    }
 }

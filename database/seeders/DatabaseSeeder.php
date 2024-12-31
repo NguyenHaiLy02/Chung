@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
             TbChungNhanSeeder::class,
             TbTinDangSanPhamSeeder::class,
             TbHinhAnhTinDangSeeder::class,
-            TbYeuCauNhapHangSeeder::class,
             TbGioHangSeeder::class,
             TbDanhGiaSanPhamSeeder::class,
         ]);
