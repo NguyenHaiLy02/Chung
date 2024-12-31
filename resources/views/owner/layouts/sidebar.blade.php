@@ -99,7 +99,7 @@
                 @endif
                 @if  (session('username') && $user->quyen === 'chucuahang')
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
+                    <a href="/owner/product_import_request" class="nav-link text-white">
                         <i class="nav-icon fas fa-history"></i>
                         <p> Yêu cầu nhập hàng </p>
                     </a>
@@ -108,7 +108,7 @@
 
                 @if  (session('username') && $user->quyen === 'nhacungcap')
                 <li class="nav-item">
-                    <a href="post_product" class="nav-link text-white">
+                    <a href="/supplier/post_product" class="nav-link text-white">
                         <i class="nav-icon fas fa-history"></i>
                         <p> Đăng thông tin sản phẩm </p>
                     </a>
@@ -116,7 +116,7 @@
                 @endif
                 @if  (session('username') && $user->quyen === 'nhacungcap')
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-white">
+                    <a href="/supplier/product_export_management" class="nav-link text-white">
                         <i class="nav-icon fas fa-history"></i>
                         <p> Quản lý xuất hàng </p>
                     </a>

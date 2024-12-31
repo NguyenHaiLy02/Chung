@@ -26,4 +26,10 @@ class TbYeuCauNhapHang extends Model
     {
         return $this->belongsTo(TbNhanVien::class, 'maNhanVien');
     }
+
+    public function chiTietYeuCau()
+{
+    return $this->hasMany(TbChiTietYeuCauNhapHang::class, 'maYeuCau');
+}
+
 }

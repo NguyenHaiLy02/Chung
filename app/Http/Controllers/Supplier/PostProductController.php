@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Supplier;
 use App\Http\Controllers\Controller;
 use App\Models\TbTinDangSanPham;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class PostProductController extends Controller
@@ -39,34 +40,30 @@ class PostProductController extends Controller
             'ngaySanXuat' => 'required|date',
             'ngayHetHan' => 'required|date',
             'soLuong' => 'required|integer',
-            'hinhanh' => 'nullable|array', // Đảm bảo đây là mảng nếu upload nhiều file
+            'hinhanh' => 'nullable|array',
             'hinhanh.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        // Lưu thông tin sản phẩm vào bảng tbTinDangSanPham
-        $product = TbTinDangSanPham::create([
-            'maNCC' => auth()->user()->nhaCungCap->maNCC, // Lấy mã nhà cung cấp từ người dùng đã đăng nhập
-            'tenSP' => $request->tenSP,
-            'moTa' => $request->moTa,
-            'giaSP' => $request->giaSP,
-            'donViTinh' => $request->donViTinh,
-            'ngaySanXuat' => $request->ngaySanXuat,
-            'ngayHetHan' => $request->ngayHetHan,
-            'soLuong' => $request->soLuong,
-        ]);
-    
-        if ($request->hasFile('hinhanh')) {
-            foreach ($request->file('hinhanh') as $file) {
-                // Lưu file vào storage và lấy đường dẫn
-                $path = $file->store('post_products', 'public');
-    
-                // Lưu đường dẫn hình ảnh vào bảng product_images (nếu có)
-                $product->images()->create([
-                    'path' => $path,
-                ]);
+        DB::transaction(function () use ($request) {
+            $product = TbTinDangSanPham::create([
+                'maNCC' => auth()->user()->nhaCungCap->maNCC,
+                'tenSP' => $request->tenSP,
+                'moTa' => $request->moTa,
+                'giaSP' => $request->giaSP,
+                'donViTinh' => $request->donViTinh,
+                'ngaySanXuat' => $request->ngaySanXuat,
+                'ngayHetHan' => $request->ngayHetHan,
+                'soLuong' => $request->soLuong,
+            ]);
+
+            if ($request->hasFile('hinhanh')) {
+                foreach ($request->file('hinhanh') as $file) {
+                    $path = $file->store('post_products', 'public');
+                    $product->hinhanhtindang()->create(['hinhAnh' => $path]);
+                }
             }
-        }
-    
+        });
+
         return redirect()->route('supplier.post_product.index')->with('success', 'Sản phẩm đã được đăng thành công!');
     }
 

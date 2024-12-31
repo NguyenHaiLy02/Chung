@@ -102,6 +102,7 @@ use App\Http\Controllers\Owner\EmployeeController;
 use App\Http\Controllers\Owner\ProductManagementController;
 use App\Http\Controllers\Owner\OwnerOrderController;
 use App\Http\Controllers\Owner\SupplierManagementController;
+use App\Http\Controllers\Owner\ProductImportRequestController;
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -114,8 +115,11 @@ Route::prefix('owner')->name('owner.')->group(function () {
     Route::resource('supplier_management', SupplierManagementController::class);
     Route::put('supplier_management/{id}/approve', [SupplierManagementController::class, 'approve'])
         ->name('supplier_management.approve');
+    
+    Route::resource('product_import_request', ProductImportRequestController::class);
 }); 
 
+Route::post('/order-request/submit', [SupplierManagementController::class, 'submitOrderRequest'])->name('order-request.submit');
 
 Route::get('/owner/orders', [OwnerOrderController::class, 'viewOrders'])->name('owner.orders');
 Route::get('/owner/orders/{maDonHang}', [OwnerOrderController::class, 'viewOrderDetail'])->name('owner.order.detail');
@@ -124,10 +128,14 @@ use App\Http\Controllers\Buyer\ChatbotController;
 Route::post('/chatbot', [ChatbotController::class, 'handleChat'])->name('chatbot.handle');
 
 use App\Http\Controllers\Supplier\PostProductController;
-Route::prefix('supplier')->name('supplier.')->middleware('auth')->group(function() {
+use App\Http\Controllers\Supplier\ProductExportManagementController;
+Route::prefix('supplier')->name('supplier.')->group(function() {
     // Route cho trang index của danh sách sản phẩm
     Route::resource('post_product', PostProductController::class);
+    Route::resource('product_export_management', ProductExportManagementController::class);
 });
+Route::patch('/product_export_management/{id}/update_status', [ProductExportManagementController::class, 'updateStatus'])
+     ->name('supplier.product_export_management.update_status');
 
 
 
