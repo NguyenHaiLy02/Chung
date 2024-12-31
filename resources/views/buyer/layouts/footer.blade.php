@@ -39,86 +39,62 @@
 
         <div class="col-md-2 col-sm-6">
           <div class="footer-menu">
-            <h5 class="widget-title">Ultras</h5>
+            <h5 class="widget-title">Về chúng tôi</h5>
             <ul class="menu-list list-unstyled">
               <li class="menu-item">
-                <a href="#" class="nav-link">About us</a>
+                <a href="#" class="nav-link">Giới thiệu về DanaMart</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Conditions </a>
+                <a href="#" class="nav-link">Danh sách nhà cung cấp</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Our Journals</a>
+                <a href="#" class="nav-link">Chính sách bảo mật</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Careers</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Affiliate Programme</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Ultras Press</a>
+                <a href="#" class="nav-link">Điều khoản</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
           <div class="footer-menu">
-            <h5 class="widget-title">Customer Service</h5>
+            <h5 class="widget-title">Hỗ trợ khách hàng</h5>
             <ul class="menu-list list-unstyled">
               <li class="menu-item">
-                <a href="#" class="nav-link">FAQ</a>
+                <a href="#" class="nav-link">Trung tâm hỗ trợ khách hàng</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Contact</a>
+                <a href="#" class="nav-link">Chính sách giao hàng</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Privacy Policy</a>
+                <a href="#" class="nav-link">Chính sách thanh toán</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Returns & Refunds</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Cookie Guidelines</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Delivery Information</a>
+                <a href="#" class="nav-link">Chính sách đổi trả</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-md-2 col-sm-6">
           <div class="footer-menu">
-            <h5 class="widget-title">Customer Service</h5>
+            <h5 class="widget-title">Chăm sóc khách hàng</h5>
             <ul class="menu-list list-unstyled">
               <li class="menu-item">
-                <a href="#" class="nav-link">FAQ</a>
+                <a href="#" class="nav-link">Liên hệ: 035 305 7899</a>
               </li>
               <li class="menu-item">
-                <a href="#" class="nav-link">Contact</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Privacy Policy</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Returns & Refunds</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Cookie Guidelines</a>
-              </li>
-              <li class="menu-item">
-                <a href="#" class="nav-link">Delivery Information</a>
+                <a href="#" class="nav-link">Email: danamart@gmail.com</a>
               </li>
             </ul>
           </div>
         </div>
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="footer-menu">
-            <h5 class="widget-title">Subscribe Us</h5>
-            <p>Subscribe to our newsletter to get updates about our grand offers.</p>
+            <h5 class="widget-title">Đăng ký</h5>
+            <p>Hãy đăng ký nhận bản tin của chúng tôi để không bỏ lỡ những ưu đãi hấp dẫn và thông tin mới nhất!</p>
             <form class="d-flex mt-3 gap-0" role="newsletter">
-              <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Email Address" aria-label="Email Address">
-              <button class="btn btn-dark rounded-end rounded-0" type="submit">Subscribe</button>
+              <input class="form-control rounded-start rounded-0 bg-light" type="email" placeholder="Email Address" aria-label="Email">
+              <button class="btn btn-dark rounded-end rounded-0" type="submit">Đăng ký</button>
             </form>
           </div>
         </div>

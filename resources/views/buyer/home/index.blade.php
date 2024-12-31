@@ -162,13 +162,13 @@
                                                     title="{{ $sanPham->tenSanPham }}">
                                                     <h3>{{ $sanPham->tenSanPham }}</h3>
                                                 </a>
-                                                <span class="qty">{{ $sanPham->soLuongTonKho }} Số lượng</span>
+                                                <span class="qty">Số lượng: {{ $sanPham->soLuongTonKho }}</span>
                                                 <span class="rating">
                                                     <svg width="24" height="24" class="text-primary">
                                                         <use xlink:href="#star-solid"></use>
                                                     </svg> 4.5
                                                 </span>
-                                                <span class="price">${{ $sanPham->giaTien }}</span>
+                                                <span class="price">{{ number_format($sanPham->giaTien, 0, ',', '.') }} VND</span>
 
                                             </div>
                                         </div>
@@ -206,13 +206,13 @@
                                                     </a>
                                                 </figure>
                                                 <h3>{{ $sanPham->tenSanPham }}</h3>
-                                                <span class="qty">{{ $sanPham->soLuongTonKho }} Số lượng</span>
+                                                <span class="qty">Số lượng: {{ $sanPham->soLuongTonKho }}</span>
                                                 <span class="rating">
                                                     <svg width="24" height="24" class="text-primary">
                                                         <use xlink:href="#star-solid"></use>
                                                     </svg> 4.5
                                                 </span>
-                                                <span class="price">${{ $sanPham->giaTien }}</span>
+                                                <span class="price">{{ number_format($sanPham->giaTien, 0, ',', '.') }} VND</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -225,7 +225,27 @@
         </div>
     </div>
     </div>
+    <div id="floating-icon">
+        <button id="chatbot-button">
+            <img src="{{ asset('chatbot/chatbot2.png') }}" alt="Chatbot" />
+        </button>
+    </div>
+    
+    <!-- Khung chatbot -->
+    <div id="chat-window" class="hidden">
+        <div id="chat-header">
+            <img src="{{ asset('chatbot/chat-icon.png') }}" alt="Chatbot" id="chatbot-header-icon" />
+            <h5>Trợ lý dinh dưỡng</h5>
+            <button id="close-chat">✖</button>
+        </div>
+        <div id="chat-content"></div>
+        <div id="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Nhập câu hỏi của bạn..." />
+            <button id="send-message">Gửi</button>
+        </div>
+    </div>    
 </section>
+
 <script>
     document.getElementById('search-button').addEventListener('click', function(e) {
         // Ngừng hành động mặc định của nút

@@ -1,0 +1,167 @@
+/* Khung chat */
+#chat-window {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    height: 400px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    display: none; /* Ẩn khung chat mặc định */
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 9999; /* Đảm bảo khung chat sẽ nằm trên icon */
+}
+
+#chat-header {
+    background-color: #f57c00; /* Màu cam */
+    color: white;
+    padding: 10px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    position: relative; /* Để căn chỉnh nút trong phần header */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#close-chat {
+    position: absolute;
+    top: 10px; /* Căn từ trên */
+    right: 10px; /* Căn từ phải */
+    background: none; /* Xóa màu nền */
+    border: none; /* Xóa viền */
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    position: absolute; /* Để căn giữa khung */
+    top: 50%; /* Đẩy xuống giữa khung */
+    
+    transform: translate(-50%, -50%); /* Căn giữa tuyệt đối */
+}
+
+#close-chat:hover {
+    color: #ddd; /* Màu nhạt khi hover */
+}
+#chat-header img {
+    width: 40px; /* Kích thước icon */
+    height: 40px;
+    margin-right: 8px; /* Khoảng cách giữa icon và chữ */
+}
+#chat-header h5 {
+    margin: 0; /* Xóa khoảng cách mặc định */
+    font-size: 16px; /* Kích thước chữ nhỏ */
+    color: white; /* Màu chữ trắng */
+    text-align: center; /* Căn giữa chữ theo chiều ngang */
+    line-height: 1.5; /* Căn chỉnh khoảng cách dòng */
+    width: 100%; /* Đảm bảo nội dung chiếm hết khung */
+    position: absolute; /* Để căn giữa khung */
+    top: 50%; /* Đẩy xuống giữa khung */
+    left: 50%; /* Đẩy sang giữa khung */
+    transform: translate(-50%, -50%); /* Căn giữa tuyệt đối */
+}
+#chat-content {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto; /* Cuộn nếu nội dung quá dài */
+}
+
+#chat-input-area {
+    padding: 8px 10px; /* Thay đổi padding để khung nhập tin nhắn gần nút gửi hơn */
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#chat-input {
+    flex-grow: 1; /* Đảm bảo input chiếm phần còn lại */
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#send-message {
+    background-color: #ff8c00; /* Màu cam */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#send-message:hover {
+    background-color: #e07b00; /* Đổi màu khi hover */
+}
+
+/* Khung nhập tin nhắn */
+#chat-input-area input {
+    margin-right: 10px; /* Khoảng cách giữa input và nút gửi */
+}
+
+
+#chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 24px;
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    display: block;
+    cursor: pointer;
+    z-index: 9998; /* Đảm bảo icon sẽ nằm dưới khung chat */
+    padding: 0; /* Xóa padding để hình ảnh chiếm toàn bộ nút */
+}
+
+#chatbot-button img {
+    width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ diện tích nút */
+    height: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ diện tích nút */
+    border-radius: 50%; /* Giữ hình tròn cho hình ảnh */
+}
+
+
+#chatbot-button.hide {
+    display: none; /* Ẩn icon khi mở cửa sổ chat */
+}
+#chat-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+    font-size: 14px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background-color: #f7c192; /* Xanh lá */
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.bot-message {
+    background-color: #e5e5e5; /* Màu xám */
+    color: black;
+    margin-right: auto;
+    text-align: left;
+}
+
+.hide {
+    display: none;
+}
+

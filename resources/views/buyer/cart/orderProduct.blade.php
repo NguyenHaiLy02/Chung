@@ -65,7 +65,7 @@
                     <select name="paymentMethod" id="paymentMethod" required
                         style="font-size: 14px; padding: 5px; width: auto; max-width: 200px;margin-right: 50px;">
                         <option value="cod">Thanh toán khi nhận hàng</option>
-                        <option value="nvpay">Thanh toán NVPay</option>
+                        <option value="nvpay">Thanh toán VNPay</option>
                     </select>
                 </div>
 

@@ -51,14 +51,14 @@ class LoginController extends Controller
             }
 
             // Kiểm tra quyền và trạng thái phê duyệt
-            if ($user->quyen === 'nhacungcap') {
-                if (!$user->pheDuyet) {
-                    // Nếu pheDuyet là false, hiển thị thông báo đang đợi phê duyệt
-                    return back()->withErrors([
-                        'login' => 'Đơn đăng ký cung cấp sản phẩm của bạn đang đợi phê duyệt.',
-                    ])->withInput();
-                }
-            }
+            // if ($user->quyen === 'nhacungcap') {
+            //     if (!$user->pheDuyet) {
+            //         // Nếu pheDuyet là false, hiển thị thông báo đang đợi phê duyệt
+            //         return back()->withErrors([
+            //             'login' => 'Đơn đăng ký cung cấp sản phẩm của bạn đang đợi phê duyệt.',
+            //         ])->withInput();
+            //     }
+            // }
 
             // Đăng nhập tài khoản
             Auth::login($user);
@@ -72,11 +72,14 @@ class LoginController extends Controller
                     session()->put('username', $user->taiKhoan);
                     return redirect()->route('dashboard.index')->with('success', 'Đăng nhập thành công.');
                 case 'nhanvien':
-                    return redirect()->route('')->with('success', 'Đăng nhập thành công.');
+                    session()->put('username', $user->taiKhoan);
+                    return redirect()->route('owner.product.index')->with('success', 'Đăng nhập thành công.');
                 case 'nhanviengiaohang':
-                    return redirect()->route('')->with('success', 'Đăng nhập thành công.');
+                    session()->put('username', $user->taiKhoan);
+                    return redirect()->route('owner.orders')->with('success', 'Đăng nhập thành công.');
                 case 'nhacungcap':
-                    return redirect()->route('')->with('success', 'Đăng nhập thành công.');
+                    session()->put('username', $user->taiKhoan);
+                    return redirect()->route('supplier.post_product.index')->with('success', 'Đăng nhập thành công.');
                 default:
                     return back()->withErrors([
                         'login' => 'Quyền của bạn không được hỗ trợ.',

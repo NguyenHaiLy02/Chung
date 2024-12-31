@@ -157,7 +157,7 @@
     <div class="product-info">
         <h1>{{ $sanPham->tenSanPham }}</h1>
         <p>{{ $sanPham->moTa }}</p>
-        <p class="price"><strong>Giá: </strong>${{ number_format($sanPham->giaTien, 2) }}</p>
+        <p class="price"><strong>Giá: </strong>{{  number_format($sanPham->giaTien, 0, ',', '.') }} VND</p>
         <div style="display: flex">
             <div>
                 <p><strong>Đơn vị tính: </strong>{{ $sanPham->donViTinh }}</p>

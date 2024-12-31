@@ -39,68 +39,89 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.index') }}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                        </p>
-                    </a>
-                </li>
-               
-                <li class="nav-item">
-                    <a href="{{ route('owner.customer_management.index') }}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p> Quản lý khách hàng </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('owner.employee_management.index') }}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p> Quản lý nhân viên </p>
-                    </a>
-                </li>            
-
-                <li class="nav-item">
-                    <a href="{{ route('owner.supplier_management.index') }}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-warehouse"></i>
-                        <p> Nhà cung cấp </p>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{{ route('owner.category.index') }}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-bars"></i>
-                        <p> Danh Mục</p>
-                    </a>
-                </li>
-
-               
-
-
-                
-
-                <li class="nav-item">
-                    <a href="{{ route('owner.product.index') }}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-tag"></i>
-                        <p> Sản phẩm </p>
-                    </a>
-                </li>
-                
-                <li class="nav-item">
-                    <a href="{{ route('owner.orders')}}" class="nav-link text-white">
-                        <i class="nav-icon fas fa-receipt"></i>
-                        <p> Quản lý đơn hàng </p>
-                    </a>
-                </li>
-
+               @if  (session('username') && $user->quyen === 'chucuahang')
+                    <li class="nav-item">
+                        <a href="{{ route('dashboard.index') }}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                @endif
+                @if  (session('username') && $user->quyen === 'chucuahang')
+                    <li class="nav-item">
+                        <a href="{{ route('owner.customer_management.index') }}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p> Quản lý khách hàng </p>
+                        </a>
+                    </li>
+                @endif
+                @if  (session('username') && $user->quyen === 'chucuahang')
+                    <li class="nav-item">
+                        <a href="{{ route('owner.employee_management.index') }}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p> Quản lý nhân viên </p>
+                        </a>
+                    </li>            
+                @endif
+                @if (session('username') && $user->quyen === 'chucuahang')
+                    <li class="nav-item">
+                        <a href="{{ route('owner.supplier_management.index') }}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-warehouse"></i>
+                            <p> Nhà cung cấp </p>
+                        </a>
+                    </li>
+                @endif
+                @if (session('username') && $user->quyen === 'chucuahang')
+                    <li class="nav-item">
+                        <a href="{{ route('owner.category.index') }}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-bars"></i>
+                            <p> Danh Mục</p>
+                        </a>
+                    </li>
+                @endif
+                @if (auth()->check() && in_array(auth()->user()->quyen, ['chucuahang', 'nhanvien']))
+                    <li class="nav-item">
+                        <a href="{{ route('owner.product.index') }}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-tag"></i>
+                            <p> Sản phẩm </p>
+                        </a>
+                    </li>
+                @endif
+                @if (auth()->check() && in_array(auth()->user()->quyen, ['chucuahang', 'nhanvien', 'nhanviengiaohang']))
+                    <li class="nav-item">
+                        <a href="{{ route('owner.orders')}}" class="nav-link text-white">
+                            <i class="nav-icon fas fa-receipt"></i>
+                            <p> Quản lý đơn hàng </p>
+                        </a>
+                    </li>
+                @endif
+                @if  (session('username') && $user->quyen === 'chucuahang')
                 <li class="nav-item">
                     <a href="#" class="nav-link text-white">
                         <i class="nav-icon fas fa-history"></i>
-                        <p> Lịch sử nhập hàng </p>
+                        <p> Yêu cầu nhập hàng </p>
                     </a>
                 </li>
+                @endif
+
+                @if  (session('username') && $user->quyen === 'nhacungcap')
+                <li class="nav-item">
+                    <a href="post_product" class="nav-link text-white">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p> Đăng thông tin sản phẩm </p>
+                    </a>
+                </li>
+                @endif
+                @if  (session('username') && $user->quyen === 'nhacungcap')
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-white">
+                        <i class="nav-icon fas fa-history"></i>
+                        <p> Quản lý xuất hàng </p>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

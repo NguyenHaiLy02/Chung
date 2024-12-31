@@ -119,3 +119,15 @@ Route::prefix('owner')->name('owner.')->group(function () {
 
 Route::get('/owner/orders', [OwnerOrderController::class, 'viewOrders'])->name('owner.orders');
 Route::get('/owner/orders/{maDonHang}', [OwnerOrderController::class, 'viewOrderDetail'])->name('owner.order.detail');
+
+use App\Http\Controllers\Buyer\ChatbotController;
+Route::post('/chatbot', [ChatbotController::class, 'handleChat'])->name('chatbot.handle');
+
+use App\Http\Controllers\Supplier\PostProductController;
+Route::prefix('supplier')->name('supplier.')->middleware('auth')->group(function() {
+    // Route cho trang index của danh sách sản phẩm
+    Route::resource('post_product', PostProductController::class);
+});
+
+
+

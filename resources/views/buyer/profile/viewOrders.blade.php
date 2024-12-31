@@ -139,9 +139,9 @@
         }
 
         .tab-button.active {
-            background-color: #007bff;
+            background-color: #ffc43f;
             color: white;
-            border-color: #007bff;
+            border-color: #ffc43f;
         }
 
         .tab-content {
@@ -151,7 +151,7 @@
         /* CSS cho nút xác nhận */
         .btn-confirm {
             padding: 10px 15px;
-            background-color: #28a745;
+            background-color: #ffc43f;
             color: white;
             border: none;
             border-radius: 5px;
@@ -161,12 +161,12 @@
         }
 
         .btn-confirm:hover {
-            background-color: #218838;
+            background-color: #f7a422;
             transform: scale(1.05);
         }
 
         .btn-confirm:active {
-            background-color: #1e7e34;
+            background-color: #f7a422;
             transform: scale(0.95);
         }
 

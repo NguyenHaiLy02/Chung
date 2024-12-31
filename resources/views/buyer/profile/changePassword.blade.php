@@ -40,7 +40,7 @@
     .password-container button {
         width: 100%;
         padding: 10px;
-        background-color: #007bff;
+        background-color: #ffc43f;
         color: #fff;
         font-size: 16px;
         border: none;
@@ -50,7 +50,7 @@
     }
 
     .password-container button:hover {
-        background-color: #0056b3;
+        background-color: #f7a422;
     }
 
     .alert {
