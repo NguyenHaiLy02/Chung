@@ -49,8 +49,8 @@
         
                         <!-- Thêm checkbox chọn xóa -->
                         <div>
-                            <input type="checkbox" name="delete[]" value="{{ $chungNhan->id }}" id="delete_{{ $chungNhan->id }}">
-                            <label for="delete_{{ $chungNhan->id }}">Xóa</label>
+                            <input type="checkbox" name="delete[]" value="{{ $chungNhan->maChungNhan }}" id="delete_{{ $chungNhan->maChungNhan }}">
+                            <label for="delete_{{ $chungNhan->maChungNhan }}">Xóa</label>
                         </div>
                     </div>
                 @endforeach

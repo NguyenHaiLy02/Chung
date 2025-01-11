@@ -9,6 +9,7 @@ class TbChungNhan extends Model
     use HasFactory;
 
     protected $table = 'tbchungnhan';
+    protected $primaryKey = 'maChungNhan';
     protected $fillable = ['maNCC', 'hinhanh'];
 
     public function nhaCungCap()

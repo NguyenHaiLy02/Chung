@@ -34,7 +34,7 @@ class CertificationController extends Controller
         'xuatXu' => 'required|string|max:255',
         'hinhanh' => 'nullable|image|max:2048', // Chứng nhận có thể không cập nhật
         'delete' => 'nullable|array',  // Chứng nhận cần xóa
-        'delete.*' => 'exists:tbchungnhan,id',  // Kiểm tra chứng nhận có tồn tại
+        'delete.*' => 'exists:tbchungnhan,maChungNhan',  // Kiểm tra chứng nhận có tồn tại
     ]);
 
     $nhaCungCap = Auth::user(); // Lấy nhà cung cấp đang đăng nhập
@@ -56,16 +56,8 @@ class CertificationController extends Controller
     if ($request->has('delete') && is_array($request->input('delete'))) {
         $deleteIds = $request->input('delete');
         
-        // Xóa hình ảnh từ storage
-        $chungNhansToDelete = TbChungNhan::whereIn('id', $deleteIds)->get();
-        foreach ($chungNhansToDelete as $chungNhan) {
-            if (Storage::exists('public/' . $chungNhan->hinhanh)) {
-                Storage::delete('public/' . $chungNhan->hinhanh);
-            }
-        }
-    
         // Xóa chứng nhận khỏi cơ sở dữ liệu
-        TbChungNhan::whereIn('id', $deleteIds)->delete();
+        TbChungNhan::whereIn('maChungNhan', $deleteIds)->delete();
     }
     
 
