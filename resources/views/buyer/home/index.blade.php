@@ -168,7 +168,9 @@
                                                         <use xlink:href="#star-solid"></use>
                                                     </svg> 4.5
                                                 </span>
-                                                <span class="price">{{ number_format($sanPham->giaTien, 0, ',', '.') }} VND</span>
+                                                <span
+                                                    class="price">{{ number_format($sanPham->giaTien, 0, ',', '.') }}
+                                                    VND</span>
 
                                             </div>
                                         </div>
@@ -206,13 +208,16 @@
                                                     </a>
                                                 </figure>
                                                 <h3>{{ $sanPham->tenSanPham }}</h3>
-                                                <span class="qty">Số lượng: {{ $sanPham->soLuongTonKho }}</span>
+                                                <span class="qty">Số lượng:
+                                                    {{ $sanPham->soLuongTonKho }}</span>
                                                 <span class="rating">
                                                     <svg width="24" height="24" class="text-primary">
                                                         <use xlink:href="#star-solid"></use>
                                                     </svg> 4.5
                                                 </span>
-                                                <span class="price">{{ number_format($sanPham->giaTien, 0, ',', '.') }} VND</span>
+                                                <span
+                                                    class="price">{{ number_format($sanPham->giaTien, 0, ',', '.') }}
+                                                    VND</span>
                                             </div>
                                         </div>
                                     @endforeach
@@ -225,7 +230,10 @@
         </div>
     </div>
     </div>
-    <div id="floating-icon">
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger intent="WELCOME" chat-title="Chatbot-DanaMart" agent-id="f4c8d84f-51fc-4306-96b1-eb69b66fe001"
+        language-code="en"></df-messenger>
+    {{-- <div id="floating-icon">
         <button id="chatbot-button">
             <img src="{{ asset('chatbot/chatbot2.png') }}" alt="Chatbot" />
         </button>
@@ -263,51 +271,50 @@
             });
         }
     });
-</script>
+</script> --}}
 @endsection
 <style>
-.product-image {
-    width: 100%;
-    /* Đảm bảo hình ảnh chiếm toàn bộ không gian của phần chứa */
-    height: auto;
-    /* Giữ tỷ lệ của hình ảnh */
-    object-fit: cover;
-    /* Đảm bảo hình ảnh không bị méo và tự động cắt để phù hợp */
-    /* border-radius: 8px; Bo góc của hình ảnh */
-    transition: transform 0.3s ease;
-    /* Thêm hiệu ứng khi hover */
-}
+    .product-image {
+        width: 100%;
+        /* Đảm bảo hình ảnh chiếm toàn bộ không gian của phần chứa */
+        height: auto;
+        /* Giữ tỷ lệ của hình ảnh */
+        object-fit: cover;
+        /* Đảm bảo hình ảnh không bị méo và tự động cắt để phù hợp */
+        /* border-radius: 8px; Bo góc của hình ảnh */
+        transition: transform 0.3s ease;
+        /* Thêm hiệu ứng khi hover */
+    }
 
-.product-image:hover {
-    transform: scale(1.1);
-    /* Phóng to hình ảnh khi hover */
-}
+    .product-image:hover {
+        transform: scale(1.1);
+        /* Phóng to hình ảnh khi hover */
+    }
 
-.product-item figure {
-    position: relative;
-    overflow: hidden;
-    /* Đảm bảo hình ảnh không bị tràn ra ngoài */
-}
+    .product-item figure {
+        position: relative;
+        overflow: hidden;
+        /* Đảm bảo hình ảnh không bị tràn ra ngoài */
+    }
 
-.product-item {
-    position: relative;
-    margin-bottom: 30px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
-}
+    .product-item {
+        position: relative;
+        margin-bottom: 30px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        text-align: center;
+    }
 
-.product-item h3 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 15px;
-}
+    .product-item h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 15px;
+    }
 
-.product-item .price {
-    font-size: 18px;
-    font-weight: 700;
-    color: #f44d58;
-    margin-top: 10px;
-}
+    .product-item .price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f44d58;
+        margin-top: 10px;
+    }
 </style>
-

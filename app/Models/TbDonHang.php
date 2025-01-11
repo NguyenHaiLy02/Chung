@@ -32,5 +32,9 @@ class TbDonHang extends Model
     {
         return $this->hasMany(TbChiTietDonHang::class, 'maDonHang');
     }
+    public function khachHang()
+    {
+        return $this->belongsTo(TbKhachHang::class, 'taiKhoan', 'taiKhoan');
+    }
 
 }

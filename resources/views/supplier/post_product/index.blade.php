@@ -4,10 +4,10 @@
 
 @section('content')
     <div class="container mt-5">
-        <h1>Danh Sách Sản Phẩm</h1>
+        <h1>Danh sách tin đăng</h1>
 
         <!-- Nút thêm sản phẩm mới -->
-        <a href="{{ route('supplier.post_product.create') }}" class="btn btn-primary mb-3">Thêm Sản Phẩm</a>
+        <a href="{{ route('supplier.post_product.create') }}" class="btn btn-primary mb-3">Đăng tin sản phẩm</a>
 
         <!-- Bảng thông tin sản phẩm -->
         <table class="table table-bordered">

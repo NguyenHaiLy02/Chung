@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\TbTaiKhoan;
+use App\Models\TbKhachHang; // Import model TbKhachHang
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
@@ -37,6 +37,15 @@ class RegisterController extends Controller
             'matKhau' => Hash::make($request->matKhau),
             'quyen' => 'khachhang',
             'verify_email' => false,
+        ]);
+
+        // Thêm dữ liệu vào bảng tbkhachhang
+        TbKhachHang::create([
+            'taiKhoan' => $user->taiKhoan,
+            'tenTaiKhoan' => $user->taiKhoan, // tenTaiKhoan lấy từ taiKhoan
+            'anhDaiDien' => 'images/default-avatar.png', // Ảnh đại diện mặc định
+            'sdt' => 'chưa cập nhật',
+            'diaChi' => 'chưa cập nhật',
         ]);
 
         // Gửi email xác thực

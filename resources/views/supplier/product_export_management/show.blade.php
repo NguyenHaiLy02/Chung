@@ -1,7 +1,7 @@
 @extends('owner.layouts.app')
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Chi tiết yêu cầu nhập hàng: {{ $orderRequest->maYeuCau }}</h1>
+    <h1 class="mb-4">Chi tiết yêu cầu: {{ $orderRequest->maYeuCau }}</h1>
 
     <div class="card mb-4">
         <div class="card-header">Thông tin chung</div>

@@ -138,4 +138,21 @@ Route::patch('/product_export_management/{id}/update_status', [ProductExportMana
      ->name('supplier.product_export_management.update_status');
 
 
+//      use App\Http\Controllers\Supplier\CertificationController;
+
+// // Hiển thị chứng nhận của nhà cung cấp
+// Route::get('supplier/certifications', [CertificationController::class, 'showCertifications'])->name('supplier.certifications');
+
+// // Cập nhật chứng nhận
+// Route::post('supplier/certifications', [CertificationController::class, 'updateCertification'])->name('supplier.updateCertification');
+
+use App\Http\Controllers\Supplier\CertificationController;
+
+Route::middleware('auth')->group(function () {
+    // Hiển thị thông tin nhà cung cấp và chứng nhận
+    Route::get('/supplier/certifications', [CertificationController::class, 'showCertifications'])->name('supplier.certifications');
+
+    // Cập nhật thông tin nhà cung cấp và chứng nhận
+    Route::put('/supplier/certifications/update', [CertificationController::class, 'updateCertification'])->name('supplier.updateCertifications');
+});
 

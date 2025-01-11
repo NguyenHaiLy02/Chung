@@ -1,7 +1,7 @@
 @extends('owner.layouts.app')
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Danh sách yêu cầu nhập hàng</h1>
+        <h1 class="mb-4">Danh sách yêu cầu</h1>
 
         <table class="table table-bordered">
             <thead>

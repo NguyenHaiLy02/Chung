@@ -4,9 +4,6 @@
 <div class="container">
     <h1>Danh sách sản phẩm</h1>
     <a href="{{ route('owner.product.create') }}" class="btn btn-success mb-3">Thêm sản phẩm</a>
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
     <table class="table table-bordered">
         <thead>
             <tr>

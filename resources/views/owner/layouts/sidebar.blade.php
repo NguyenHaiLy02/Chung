@@ -39,7 +39,7 @@
                 data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               @if  (session('username') && $user->quyen === 'chucuahang')
+                @if (session('username') && $user->quyen === 'chucuahang')
                     <li class="nav-item">
                         <a href="{{ route('dashboard.index') }}" class="nav-link text-white">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -49,7 +49,7 @@
                         </a>
                     </li>
                 @endif
-                @if  (session('username') && $user->quyen === 'chucuahang')
+                @if (session('username') && $user->quyen === 'chucuahang')
                     <li class="nav-item">
                         <a href="{{ route('owner.customer_management.index') }}" class="nav-link text-white">
                             <i class="nav-icon fas fa-user"></i>
@@ -57,13 +57,13 @@
                         </a>
                     </li>
                 @endif
-                @if  (session('username') && $user->quyen === 'chucuahang')
+                @if (session('username') && $user->quyen === 'chucuahang')
                     <li class="nav-item">
                         <a href="{{ route('owner.employee_management.index') }}" class="nav-link text-white">
                             <i class="nav-icon fas fa-user-tie"></i>
                             <p> Quản lý nhân viên </p>
                         </a>
-                    </li>            
+                    </li>
                 @endif
                 @if (session('username') && $user->quyen === 'chucuahang')
                     <li class="nav-item">
@@ -91,37 +91,46 @@
                 @endif
                 @if (auth()->check() && in_array(auth()->user()->quyen, ['chucuahang', 'nhanvien', 'nhanviengiaohang']))
                     <li class="nav-item">
-                        <a href="{{ route('owner.orders')}}" class="nav-link text-white">
+                        <a href="{{ route('owner.orders') }}" class="nav-link text-white">
                             <i class="nav-icon fas fa-receipt"></i>
                             <p> Quản lý đơn hàng </p>
                         </a>
                     </li>
                 @endif
-                @if  (session('username') && $user->quyen === 'chucuahang')
-                <li class="nav-item">
-                    <a href="/owner/product_import_request" class="nav-link text-white">
-                        <i class="nav-icon fas fa-history"></i>
-                        <p> Yêu cầu nhập hàng </p>
-                    </a>
-                </li>
+                @if (session('username') && $user->quyen === 'chucuahang')
+                    <li class="nav-item">
+                        <a href="/owner/product_import_request" class="nav-link text-white">
+                            <i class="nav-icon fas fa-history"></i>
+                            <p> Yêu cầu nhập hàng </p>
+                        </a>
+                    </li>
                 @endif
 
-                @if  (session('username') && $user->quyen === 'nhacungcap')
-                <li class="nav-item">
-                    <a href="/supplier/post_product" class="nav-link text-white">
-                        <i class="nav-icon fas fa-history"></i>
-                        <p> Đăng thông tin sản phẩm </p>
-                    </a>
-                </li>
+                @if (session('username') && $user->quyen === 'nhacungcap')
+                    <li class="nav-item">
+                        <a href="/supplier/post_product" class="nav-link text-white">
+                            <i class="nav-icon fas fa-edit"></i> <!-- Icon chỉnh sửa -->
+                            <p> Đăng tin sản phẩm </p>
+                        </a>
+                    </li>
                 @endif
-                @if  (session('username') && $user->quyen === 'nhacungcap')
-                <li class="nav-item">
-                    <a href="/supplier/product_export_management" class="nav-link text-white">
-                        <i class="nav-icon fas fa-history"></i>
-                        <p> Quản lý xuất hàng </p>
-                    </a>
-                </li>
+                @if (session('username') && $user->quyen === 'nhacungcap')
+                    <li class="nav-item">
+                        <a href="/supplier/product_export_management" class="nav-link text-white">
+                            <i class="nav-icon fas fa-shipping-fast"></i> <!-- Icon giao hàng nhanh -->
+                            <p> Quản lý xuất hàng </p>
+                        </a>
+                    </li>
                 @endif
+                @if (session('username') && $user->quyen === 'nhacungcap')
+                    <li class="nav-item">
+                        <a href="/supplier/certifications" class="nav-link text-white">
+                            <i class="nav-icon fas fa-user-edit"></i> <!-- Icon giao hàng nhanh -->
+                            <p> Cập nhật thông tin</p>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

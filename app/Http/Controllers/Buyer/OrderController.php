@@ -228,8 +228,8 @@ class OrderController extends Controller
                 'chiTietDonHang' => json_encode($orderDetails)
             ]);
 
-            $vnp_TmnCode = "CGXZLS0Z";
-            $vnp_HashSecret = "XNBCJFAKAZQSGTARRLGCHVZWCIOIGSHN";
+            $vnp_TmnCode = "DXP1A29L";
+            $vnp_HashSecret = "4JIGJ7HUT1OIJQU97LIBK7NQE3S5N97C";
 
             $vnp_TxnRef = $latestOrderId+1;
             $vnp_OrderInfo = 'Thanh toan hoa don';
